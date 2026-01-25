@@ -1,0 +1,16 @@
+if __name__ == "__main__":
+    name = "Rose"
+    height = "25cm"
+    age = "30 days"
+    print("=== Welcome to My Garden ===")
+    print("Plant:", name)
+    print("Height:", height)
+    print("Age:", age)
+    print()
+    print("=== End of Program ===")
+
+# === Welcome to My Garden ===
+# Plant: Rose
+# Height: 25cm
+# Age: 30 days
+# === End of Program ===
