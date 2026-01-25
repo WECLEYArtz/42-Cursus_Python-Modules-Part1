@@ -1,6 +1,6 @@
 def rec(day_max: int, day):
     if (day <= day_max):
-        print(F"Day {day}")
+        print("Day", day)
         rec(day_max, day+1)
     return
 
