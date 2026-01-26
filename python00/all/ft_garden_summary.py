@@ -1,0 +1,1 @@
+../ex6/ft_garden_summary.py
