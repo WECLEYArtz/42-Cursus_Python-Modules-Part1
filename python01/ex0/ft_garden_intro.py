@@ -8,9 +8,3 @@ if __name__ == "__main__":
     print("Age:", age)
     print()
     print("=== End of Program ===")
-
-# === Welcome to My Garden ===
-# Plant: Rose
-# Height: 25cm
-# Age: 30 days
-# === End of Program ===
