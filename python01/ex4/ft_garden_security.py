@@ -1,16 +1,12 @@
 class SecurePlant:
-    def __new__(cls, height: int, age: int) -> None:
-        if height < 0:
-            return None
-        if age < 0:
-            return None
-        return SecurePlant.__new__(cls, height, age)
+    _height: int = 0
+    _age: int = 0
 
-    def __init__(self, height: int, age: int) -> None:
-        if self is None:
-            return
-        self._height:    int = height
-        self._age:       int = age
+    def __init__(self, name: str, height: int, age: int) -> None:
+        self.name: str = name
+        self.set_age(age)
+        self.set_height(height)
+        print(F"Created: {self.name} ({self._height}cm, {self._age} days old)")
 
     def set_height(self, new_height: int):
         if new_height < 0:
@@ -33,12 +29,11 @@ class SecurePlant:
 
 if __name__ == "__main__":
     print("=== Garden Security System ===")
-    a = SecurePlant(1, 1)
-    if a:
-        print(a.get_height())
-        print(a.get_age())
-    else:
-        print(a)
+    a = SecurePlant("rose", -1, 1)
+    print(a.name)
+    a.get_height()
+    a.get_age()
+    # print(a.get_age())
 
     # print("plant attribute", plant.__dict__)
     # print(plant.get_age(), plant.get_height())
