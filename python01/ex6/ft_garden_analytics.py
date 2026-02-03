@@ -18,6 +18,9 @@ class Plant:
             return
         self._height: int = new_height
 
+    def get_height(self):
+        return self._height
+
     def get_info(self) -> str:
         return (F"{self.name}: {str(self._height)}cm")
 
@@ -67,6 +70,7 @@ class GardenManager:
             self._plants += [plant]
             self._count[plant.__class__.__name__] += 1
             self._total_added += 1
+            GardenManager.GardenStats.score[self.owner] += plant.get_height()
             print(F"Added {plant.name} to {self.owner}'s garden")
 
         def grow_all(self) -> None:
@@ -74,6 +78,7 @@ class GardenManager:
             for plant in self._plants:
                 plant.grow()
                 self._total_growth += 1
+                GardenManager.GardenStats.score[self.owner] += 1
 
         def report(self):
             print(F"=== {self.owner} Garden Report ===")
@@ -91,7 +96,7 @@ class GardenManager:
     def create_garden_network(cls, owner: str) -> None:
         if owner not in cls.gardens:
             cls.gardens[owner] = cls.Garden(owner)
-            cls.gardens_count += 1
+            cls.GardenStats.gardens_count += 1
         else:
             print("Error: attempted to add already existing owner:", owner)
 
@@ -110,31 +115,28 @@ class GardenManager:
         else:
             return None
 
-    gardens_count: int = 0
     gardens: dict[str, Garden] = {}
 
     class GardenStats():
-        gardens: dict[str, Garden]
         height_validation: bool = True
+        score: dict[str,int] = {}
+        gardens_count: int = 0
 
         @classmethod
         def show(cls):
             print("Height validation test: ", cls.height_validation)
             print("Garden scores: ", end='')
-            if(cls.height_validation):
-                cls.calculate_score()   
-            else:
-            print(F"Total gardens managed: {GardenManager.gardens_count}")
+            # if(cls.height_validation):
+            #     cls.calculate_score()   
+            # else:
+            print(F"Total gardens managed: {cls.gardens_count}")
 
-        @classmethod
-        def calculate_score(garden:  ) -> int:
+        @staticmethod
+        def calculate_score(scores:  dict[str,dict[str,int]]) -> int:
             GardenManager.gardens
 
-
-        @classmethod
+        @staticmethod
         def calculate_score_valid(garden: Garden) -> int:
-
-    GardenStats.gardens = gardens
 
 
 if __name__ == "__main__":
