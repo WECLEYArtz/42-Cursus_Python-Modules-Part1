@@ -39,17 +39,17 @@ class FloweringPlant(Plant):
 
     @override
     def get_info(self) -> str:
-        return (Plant.get_info(self) + F" {self._color} flowers (blooming)")
+        return (Plant.get_info(self) + F", {self._color} flowers (blooming)")
 
 
 class PrizeFlower(FloweringPlant):
-    def __init__(self, name: str, height: int, color: str) -> None:
-        self.prize: int = 0
+    def __init__(self, name: str, height: int, color: str, prize: int) -> None:
+        self.prize: int = prize
         super().__init__(name, height, color)
 
     @override
     def get_info(self) -> str:
-        return (FloweringPlant.get_info(self) + F" {self.prize} prize flowers")
+        return (FloweringPlant.get_info(self) + F", Prize flowers: {self.prize} ")
 
 
 class GardenManager:
@@ -71,6 +71,8 @@ class GardenManager:
             self._count[plant.__class__.__name__] += 1
             self._total_added += 1
             GardenManager.GardenStats.score[self.owner] += plant.get_height()
+            if (plant.__class__.__name__ == 'PrizeFlower'):
+                GardenManager.GardenStats.score[self.owner] += plant.prize
             print(F"Added {plant.name} to {self.owner}'s garden")
 
         def grow_all(self) -> None:
@@ -97,6 +99,7 @@ class GardenManager:
         if owner not in cls.gardens:
             cls.gardens[owner] = cls.Garden(owner)
             cls.GardenStats.gardens_count += 1
+            cls.GardenStats.score[owner] = 0
         else:
             print("Error: attempted to add already existing owner:", owner)
 
@@ -119,24 +122,21 @@ class GardenManager:
 
     class GardenStats():
         height_validation: bool = True
-        score: dict[str,int] = {}
+        score: dict[str, int] = {}
         gardens_count: int = 0
 
         @classmethod
         def show(cls):
             print("Height validation test: ", cls.height_validation)
-            print("Garden scores: ", end='')
-            # if(cls.height_validation):
-            #     cls.calculate_score()   
-            # else:
+            print(F"Garden scores: - {cls.format_scores(cls.score)}")
             print(F"Total gardens managed: {cls.gardens_count}")
 
         @staticmethod
-        def calculate_score(scores:  dict[str,dict[str,int]]) -> int:
-            GardenManager.gardens
-
-        @staticmethod
-        def calculate_score_valid(garden: Garden) -> int:
+        def format_scores(score: dict[str, int]) -> str:
+            result: str = ""
+            for key in score:
+                result += F"{key}: {score[key]}, "
+            return result[:-2]
 
 
 if __name__ == "__main__":
@@ -146,7 +146,8 @@ if __name__ == "__main__":
     print()
     GardenManager.add_plant("Alice", Plant("Oak Tree", 101))
     GardenManager.add_plant("Alice", FloweringPlant("Rose", 10, "red"))
-    GardenManager.add_plant("Alice", PrizeFlower("Sunflower", 9999, "yellow"))
+    GardenManager.add_plant("Alice", PrizeFlower("Sunflower", 100, "yellow", 10))
+
     print()
     alice_garden = GardenManager.get_garden('Alice')
     if (alice_garden):
@@ -155,3 +156,5 @@ if __name__ == "__main__":
         alice_garden.report()
     print()
     GardenManager.GardenStats.show()
+
+    # print(GardenManager.GardenStats.score)
