@@ -49,7 +49,8 @@ class PrizeFlower(FloweringPlant):
 
     @override
     def get_info(self) -> str:
-        return (FloweringPlant.get_info(self) + F", Prize flowers: {self.prize} ")
+        return (FloweringPlant.get_info(self) +
+                F", Prize flowers: {self.prize}")
 
 
 class GardenManager:
@@ -146,7 +147,10 @@ if __name__ == "__main__":
     print()
     GardenManager.add_plant("Alice", Plant("Oak Tree", 101))
     GardenManager.add_plant("Alice", FloweringPlant("Rose", 10, "red"))
-    GardenManager.add_plant("Alice", PrizeFlower("Sunflower", 100, "yellow", 10))
+    GardenManager.add_plant(
+            "Alice",
+            PrizeFlower("Sunflower", 100, "yellow", 10)
+            )
 
     print()
     alice_garden = GardenManager.get_garden('Alice')
