@@ -1,6 +1,3 @@
-from typing import override
-
-
 class Plant:
     def __init__(self, name: str, height: int) -> None:
         self.name: str = name
@@ -10,12 +7,11 @@ class Plant:
             self.set_height(0)
 
     def set_height(self, new_height: int):
-        if new_height < 0:
-            print("Invalid operation attempted:", end=' ')
-            print(F"height, {new_height}cm [REJECTED]")
-            print("Security: Negative height rejected")
-            self.show_info()
-            return
+        if (GardenManager.GardenStats.height_validation and new_height < 0):
+            print(F"[Warning]: Invalid height given: {new_height}cm.")
+            print("           Using 0cm instead")
+            new_height = 0
+            print()
         self._height: int = new_height
 
     def get_height(self):
@@ -37,7 +33,6 @@ class FloweringPlant(Plant):
         self._color: str = color
         super().__init__(name, height)
 
-    @override
     def get_info(self) -> str:
         return (Plant.get_info(self) + F", {self._color} flowers (blooming)")
 
@@ -47,7 +42,6 @@ class PrizeFlower(FloweringPlant):
         self.prize: int = prize
         super().__init__(name, height, color)
 
-    @override
     def get_info(self) -> str:
         return (FloweringPlant.get_info(self) +
                 F", Prize flowers: {self.prize}")
@@ -91,9 +85,9 @@ class GardenManager:
             print(F"Plants added: {self._total_added}", end=', ')
             print(F"Total growth: {self._total_growth}cm")
             print("Plant types:", end=' ')
-            print(F"{self._count["Plant"]} regular", end=', ')
-            print(F"{self._count["PrizeFlower"]} flowering", end=', ')
-            print(F"{self._count["FloweringPlant"]} prize flowers")
+            print(F"{self._count['Plant']} regular", end=', ')
+            print(F"{self._count['PrizeFlower']} flowering", end=', ')
+            print(F"{self._count['FloweringPlant']} prize flowers")
 
     @classmethod
     def create_garden_network(cls, owner: str) -> None:
@@ -127,6 +121,11 @@ class GardenManager:
         gardens_count: int = 0
 
         @classmethod
+        def toggle_height_validation(cls):
+            cls.height_validation = False if cls.height_validation else True
+            
+
+        @classmethod
         def show(cls):
             print("Height validation test: ", cls.height_validation)
             print(F"Garden scores: - {cls.format_scores(cls.score)}")
@@ -151,6 +150,7 @@ if __name__ == "__main__":
             "Alice",
             PrizeFlower("Sunflower", 100, "yellow", 10)
             )
+    GardenManager.add_plant("Alice", Plant("Reversed  Tree", -101))
 
     print()
     alice_garden = GardenManager.get_garden('Alice')
@@ -160,5 +160,11 @@ if __name__ == "__main__":
         alice_garden.report()
     print()
     GardenManager.GardenStats.show()
+    GardenManager.GardenStats.toggle_height_validation()
+    GardenManager.GardenStats.show()
+
+    
+    garden1= GardenManager
+    garden2= GardenManager
 
     # print(GardenManager.GardenStats.score)
