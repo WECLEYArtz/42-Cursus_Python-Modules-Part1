@@ -25,14 +25,15 @@ def water_plants():
 
 
 if __name__ == "__main__":
+    tests = {
+        "WaterError": harvest_plants,
+        "PlantError": water_plants
+    }
     print("=== Custom Garden Errors Demo ===")
-    for title, operation in {
-            "WaterError": harvest_plants,
-            "PlantError": water_plants
-            }.items():
+    for title in tests:
         print(F"Testing {title}...")
         try:
-            operation()
+            tests[title]()
         except WaterError as error:
             print("Caught WaterError:", error)
             pass
@@ -42,9 +43,9 @@ if __name__ == "__main__":
         print()
 
     print("Testing catching all garden errors...")
-    for operation in [water_plants, harvest_plants]:
+    for title in tests:
         try:
-            operation()
+            tests[title]()
         except GardenError as error:
             print("Caught a garden error:", error)
     print()
