@@ -59,6 +59,9 @@ class GardenManager:
             }
             self._total_added: int = 0
             self._total_growth: int = 0
+      
+        def get_plants(self):
+            return self._plants
 
         def append_plant(self,
                          plant: Plant | FloweringPlant | PrizeFlower):
@@ -104,6 +107,10 @@ class GardenManager:
         if owner not in cls.gardens:
             print("Error: no garden asigned for", owner)
             return
+        plants = cls.gardens[owner].get_plants()
+        if plant in plants:
+            print("Error: can't add same existing plant")
+            return
         cls.gardens[owner].append_plant(plant)
 
     @classmethod
@@ -123,7 +130,6 @@ class GardenManager:
         @classmethod
         def toggle_height_validation(cls):
             cls.height_validation = False if cls.height_validation else True
-            
 
         @classmethod
         def show(cls):
@@ -163,8 +169,7 @@ if __name__ == "__main__":
     GardenManager.GardenStats.toggle_height_validation()
     GardenManager.GardenStats.show()
 
-    
-    garden1= GardenManager
-    garden2= GardenManager
+    garden1 = GardenManager
+    garden2 = GardenManager
 
     # print(GardenManager.GardenStats.score)
