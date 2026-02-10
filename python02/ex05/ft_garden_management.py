@@ -1,0 +1,145 @@
+class GardenError(Exception):
+    def __init__(self, message: str):
+        self.message: str = message
+
+
+class WaterError(GardenError):
+    pass
+
+
+class HealthError(GardenError):
+    pass
+
+
+class Plant():
+    def __init__(self, name: str, water: int, sun: int) -> None:
+        self.name:      str = name
+        self.water_level:    int = water
+        self.sun_level:       int = sun
+
+    def water(self):
+        self.water_level += 1
+
+    def sun(self):
+        self.sun_level += 1
+
+
+class GardenManager:
+    def __init__(self) -> None:
+        self.garden: list[Plant] = []
+        self.water_tank: int = 2
+
+    def delete(self):
+        pass
+
+    def add_plants(self, name: str, height: int, age: int):
+        try:
+            if not name:
+                raise ValueError(
+                        "Error adding plant: Plant name cannot be empty!")
+            self.garden.append(Plant(name, height, age))
+        except (ValueError) as e:
+            print(e)
+        else:
+            print("Added", name, "successfully")
+
+    def water_plants(self):
+        print("Watering plants...")
+        self.open_water_system()
+        try:
+            for plant in self.garden:
+                print(F"Watering {plant.name}", end=' - ')
+                if not self.water_tank:
+                    raise WaterError(
+                            "Error watering plants: Not enough water in tank")
+                self.water_tank -= 1
+                plant.water()
+                print("success")
+        except WaterError as e:
+            print("failed")
+            print(e)
+        finally:
+            self.close_water_system()
+
+    def open_water_system(self):
+        print("Opening watering system")
+
+    def close_water_system(self):
+        print("Closing watering system (cleanup)")
+
+    def check_plant_health(self):
+        print("Checking plant health...")
+        for plant in self.garden:
+            try:
+                self.examin_health(plant.water_level, plant.sun_level)
+            except HealthError as e:
+                print(F"Error checking {plant.name}:", e)
+            else:
+                print(F"{plant.name}: healthy", end=' ')
+                print(F"(water: {plant.water_level}, sun: {plant.sun_level})")
+
+    def examin_health(self, water: int, sun: int):
+        if water > 10:
+            raise HealthError(F"Water level {water} is too high (max 10)")
+        if water < 1:
+            raise HealthError(F"Water level {water} is too low (min 1)")
+        if sun > 10:
+            raise HealthError(F"Water level {sun} is too high (max 10)")
+        if sun < 1:
+            raise HealthError(F"Water level {sun} is too low (min 1)")
+
+    def recovery_test(self):
+        print("Testing error recovery...")
+        try:
+            if self.water_tank == 0:
+                raise WaterError(
+                        "Caught GardenError: Not enough water in tank")
+        except WaterError as e:
+            print(e)
+            print("System recovered and continuing...")
+
+
+def test_garden_management():
+    try:
+        print("=== Garden Management System ===")
+        garden = GardenManager()
+        print("Adding plants to garden...")
+        garden.add_plants("tomato", 4, 8)
+        garden.add_plants("lettuce", 14, 8)
+        garden.add_plants("", 4, 8)
+        print()
+        garden.water_plants()
+        print()
+        garden.check_plant_health()
+        print()
+        garden.recovery_test()
+        print()
+        print("Garden management system test complete!")
+    except Exception as e:
+        print("Caught Error:", e)
+
+
+test_garden_management()
+
+# === Garden Management System ===
+#
+# Adding plants to garden...
+# Added tomato successfully
+# Added lettuce successfully
+# Error adding plant: Plant name cannot be empty!
+#
+# Watering plants...
+# Opening watering system
+# Watering tomato - success
+# Watering lettuce - success
+# Closing watering system (cleanup)
+#
+# Checking plant health...
+# tomato: healthy (water: 5, sun: 8)
+# Error checking lettuce: Water level 15 is too high (max 10)
+#
+# Testing error recovery...
+# Caught GardenError: Not enough water in tank
+# System recovered and continuing...
+#
+# Garden management system test complete!
