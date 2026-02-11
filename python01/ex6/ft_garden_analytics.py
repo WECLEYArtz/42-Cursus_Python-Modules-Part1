@@ -152,12 +152,9 @@ if __name__ == "__main__":
     print()
     GardenManager.add_plant("Alice", Plant("Oak Tree", 101))
     GardenManager.add_plant("Alice", FloweringPlant("Rose", 10, "red"))
-    GardenManager.add_plant(
-            "Alice",
-            PrizeFlower("Sunflower", 100, "yellow", 10)
-            )
-    GardenManager.add_plant("Alice", Plant("Reversed  Tree", -101))
-
+    GardenManager.add_plant("Alice",
+                            PrizeFlower("Sunflower", 100, "yellow", 10))
+    GardenManager.add_plant("Bob", Plant("Oak Tree", 92))
     print()
     alice_garden = GardenManager.get_garden('Alice')
     if (alice_garden):
@@ -168,8 +165,3 @@ if __name__ == "__main__":
     GardenManager.GardenStats.show()
     GardenManager.GardenStats.toggle_height_validation()
     GardenManager.GardenStats.show()
-
-    garden1 = GardenManager
-    garden2 = GardenManager
-
-    # print(GardenManager.GardenStats.score)
