@@ -1,1 +1,0 @@
-../ex7/ft_seed_inventory.py
