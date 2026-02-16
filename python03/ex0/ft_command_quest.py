@@ -1,19 +1,19 @@
 import sys
 
 if __name__ == "__main__":
-    clean_argv = [arg for arg in sys.argv if arg]
     print("=== Command Quest ===")
-    print("Program name:", clean_argv[0])
+    print("Program name:", sys.argv[0])
+    clean_argv = [arg for arg in sys.argv[1:] if arg]
 
-    if len(clean_argv) < 2:
+    if not len(clean_argv):
         exit("No arguments provided!")
 
-    print("Arguments received:", len(clean_argv[1:]))
-    i: int = 1
+    print("Arguments received:", len(clean_argv))
+    i: int = 0
     while i < len(clean_argv):
-        print(F"Argument{i}:", clean_argv[i])
+        print(F"Argument{i + 1}:", clean_argv[i])
         i += 1
-    print("Total arguments:", len(clean_argv))
+    print("Total arguments:", len(sys.argv))
 
 
 # $> python3 ft_command_quest.py
