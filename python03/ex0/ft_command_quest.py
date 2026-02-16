@@ -14,23 +14,3 @@ if __name__ == "__main__":
         print(F"Argument{i + 1}:", clean_argv[i])
         i += 1
     print("Total arguments:", len(sys.argv))
-
-
-# $> python3 ft_command_quest.py
-# === Command Quest ===
-# No arguments provided!
-# Program name: ft_command_quest.py
-# Total arguments: 1
-# $> python3 ft_command_quest.py hello world 42
-# === Command Quest ===
-# Program name: ft\_command\_quest.py
-# Arguments received: 3
-# Argument 1: hello
-# Argument 2: world
-# Argument 3: 42
-# Total arguments: 4
-# $> python3 ft_command_quest.py "Data Quest"
-# === Command Quest ===
-# Program name: ft_command_quest.py
-# Arguments received: 1
-# Argument 1: Data Ques
