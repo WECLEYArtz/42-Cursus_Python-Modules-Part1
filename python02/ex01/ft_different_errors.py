@@ -15,13 +15,16 @@ def garden_operations(test_num: int):
 
 
 def test_error_types():
-    print("=== Garden Error Types Demo ===")
     tests: list[str] = [
-            "ValueError", "ZeroDivisionError", "FileNotFoundError", "KeyError",
+            "ValueError",
+            "ZeroDivisionError",
+            "FileNotFoundError",
+            "KeyError",
             ]
-    for test, i in zip(tests, range(4)):
+    print("=== Garden Error Types Demo ===")
+    for i in range(tests.__len__()):
         try:
-            print("Testing", test)
+            print("Testing", tests[i])
             garden_operations(i)
         except ValueError:
             print("Caught ValueError: invalid literal for int()\n")
