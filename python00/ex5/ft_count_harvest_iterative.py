@@ -1,4 +1,4 @@
-def ft_count_harvest_iterative():
+def ft_count_harvest_iterative() -> None:
     day_max = int(input("Days until harvest: "))
     day = 1
     while day <= day_max:

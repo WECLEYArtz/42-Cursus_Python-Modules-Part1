@@ -1,4 +1,4 @@
-def rec(day_max: int, day):
+def rec(day_max: int, day: int) -> None:
     if (day <= day_max):
         print("Day", day)
         rec(day_max, day+1)
