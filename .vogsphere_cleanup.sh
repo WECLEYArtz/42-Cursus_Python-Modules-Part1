@@ -10,21 +10,21 @@ fi
 rm -rf /tmp/tmppush
 
 cp -r "./python$1"/ /tmp/tmppush
-cd /tmp/tmppush
+cd /tmp/tmppush || exit
 git init
 git branch -m master main
 rm -rf tester .vogsphere_cleanup.sh en.subject.pdf
 
 REPO=""
-read -p "Iput Repo:" REPO 
-if [ -z $REPO ]; then
+read -rp "Iput Repo:" REPO 
+if [ -z "$REPO" ]; then
 	echo "No repo was given"
 	rm -rf /tmp/tmppush
 	exit
 fi
 
 
-git remote add origin $REPO
+git remote add origin "$REPO"
 git add .
 git commit -m "auto delete"
 git push -f origin main
