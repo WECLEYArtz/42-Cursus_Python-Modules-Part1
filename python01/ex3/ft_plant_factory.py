@@ -1,5 +1,5 @@
 class Plant():
-    call_count = 0
+    call_count: int = 0
 
     def __init__(self, name: str, height: int, age: int) -> None:
         self.name:      str = name

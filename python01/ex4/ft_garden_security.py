@@ -9,7 +9,7 @@ class SecurePlant:
         if age < 0:
             self.set_age(0)
 
-    def set_height(self, new_height: int):
+    def set_height(self, new_height: int) -> None:
         if new_height < 0:
             print("Invalid operation attempted:", end=' ')
             print(F"height, {new_height}cm [REJECTED]")
@@ -19,7 +19,7 @@ class SecurePlant:
         self._height: int = new_height
         print(F"Height updated: {self._height}cm [OK]")
 
-    def set_age(self, new_age: int):
+    def set_age(self, new_age: int) -> None:
         if new_age < 0:
             print("Invalid operation attempted:", end=' ')
             print(F"age, {new_age}cm [REJECTED]")
@@ -30,13 +30,13 @@ class SecurePlant:
         print(F"Age updated: {self._age} days [OK]")
         print("Security: Negative age rejected")
 
-    def get_height(self):
+    def get_height(self) -> None:
         print(self._height)
 
-    def get_age(self):
+    def get_age(self) -> None:
         print(self._age)
 
-    def get_info(self):
+    def get_info(self) -> None:
         print()
         print(F"Current: {self.name} ({self._height}cm, {self._age} days)")
 

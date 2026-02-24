@@ -4,22 +4,21 @@ class Plant():
         self.height:    int = height
         self.age:       int = age
 
-    def get_info(self):
+    def get_info(self) -> None:
         print(F"{self.name} ({self.__class__.__name__})", end=': ')
         print(F"{self.height}cm, {self.age} days", end=", ")
 
 
 class Flower(Plant):
-    def __init__(self, name: str, height: int, age: int,
-                 clr: str) -> None:
+    def __init__(self, name: str, height: int, age: int, clr: str) -> None:
         super().__init__(name, height, age)
         self.color = clr
 
-    def bloom(self):
+    def bloom(self) -> None:
         print(F"{self.name} is blooming beautifully!")
         pass
 
-    def get_info(self):
+    def get_info(self) -> None:
         Plant.get_info(self)
         print(self.color, "color")
         self.bloom()
@@ -31,23 +30,23 @@ class Tree(Plant):
         super().__init__(name, height, age)
         self.trunk_diameter: int = td
 
-    def produce_shade(self):
+    def produce_shade(self) -> None:
         print(F"{self.name} provides N square meters of shade")
 
-    def get_info(self):
+    def get_info(self) -> None:
         Plant.get_info(self)
         print(F"{self.trunk_diameter}cm diameter")
         self.produce_shade()
 
 
 class Vegetable(Plant):
-    def __init__(self, name: str, height: int, age: int,
-                 hs: str, nv: str) -> None:
+    def __init__(self,
+                 name: str, height: int, age: int, hs: str, nv: str) -> None:
         super().__init__(name, height, age)
         self.harvest_season: str = hs
         self.nutritional_value: str = nv
 
-    def get_info(self):
+    def get_info(self) -> None:
         Plant.get_info(self)
         print(F"{self.harvest_season} harvest")
         print(self.name, "is rich in", self.nutritional_value)

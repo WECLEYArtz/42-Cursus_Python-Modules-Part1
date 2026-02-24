@@ -6,7 +6,7 @@ class Plant:
         if height < 0:
             self.set_height(0)
 
-    def set_height(self, new_height: int):
+    def set_height(self, new_height: int) -> None:
         if (GardenManager.GardenStats.height_validation and new_height < 0):
             print(F"[Warning]: Invalid height given: {new_height}cm.")
             print("           Using 0cm instead")
@@ -14,7 +14,7 @@ class Plant:
             print()
         self._height: int = new_height
 
-    def get_height(self):
+    def get_height(self) -> int:
         return self._height
 
     def get_info(self) -> str:
@@ -23,7 +23,7 @@ class Plant:
     def show_info(self) -> None:
         print(self.get_info())
 
-    def grow(self):
+    def grow(self) -> None:
         self._height += 1
         print(F"{self.name} grew 1cm")
 
@@ -49,7 +49,7 @@ class PrizeFlower(FloweringPlant):
 
 class GardenManager:
     class Garden():
-        def __init__(self, owner: str):
+        def __init__(self, owner: str) -> None:
             self.owner: str = owner
             self._plants: list[Plant | FloweringPlant | PrizeFlower] = []
             self._count: dict[str, int] = {
@@ -59,12 +59,12 @@ class GardenManager:
             }
             self._total_added: int = 0
             self._total_growth: int = 0
-      
-        def get_plants(self):
+
+        def get_plants(self) -> list[Plant | FloweringPlant | PrizeFlower]:
             return self._plants
 
         def append_plant(self,
-                         plant: Plant | FloweringPlant | PrizeFlower):
+                         plant: Plant | FloweringPlant | PrizeFlower) -> None:
             self._plants += [plant]
             self._count[plant.__class__.__name__] += 1
             self._total_added += 1
@@ -80,7 +80,7 @@ class GardenManager:
                 self._total_growth += 1
                 GardenManager.GardenStats.score[self.owner] += 1
 
-        def report(self):
+        def report(self) -> None:
             print(F"=== {self.owner} Garden Report ===")
             for plant in self._plants:
                 print(F"- {plant.get_info()}")

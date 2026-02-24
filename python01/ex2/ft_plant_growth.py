@@ -14,7 +14,7 @@ class Plant():
         print(F"{self.name_}: {self.height_}cm, {self.age_} days old")
 
 
-def simulate_days(plant_list: list[Plant], days: int):
+def simulate_days(plant_list: list[Plant], days: int) -> None:
     for plant in plant_list:
         print("=== Day 1 ===")
         plant.get_info()
