@@ -86,12 +86,12 @@ class Inventory():
 
         print("=== Dictionary Properties Demo ===")
 
-        print("Dictionary keys:", end='')
+        print("Dictionary keys: ", end='')
         for key in self.items.keys():
             keys += key+', '
         print(keys[:-2])
 
-        print("Dictionary values:", end='')
+        print("Dictionary values: ", end='')
         for value in self.items.values():
             values += str(value)+', '
         print(values[:-2])
