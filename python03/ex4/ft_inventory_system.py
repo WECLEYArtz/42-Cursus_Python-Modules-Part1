@@ -5,6 +5,11 @@ class Inventory():
     def __init__(self, argv: list[str]):
         self.items: dict[str, int] = self.parse_argument(argv)
         self.items_count: int = self.update_items_count()
+        self.items_category: dict[str, dict[str, int]] = {
+                "scarce": {},
+                "moderate": {},
+                "abundant": {},
+                }
 
     @staticmethod
     def percentage(val: int, total: int) -> float:
@@ -29,9 +34,12 @@ class Inventory():
             elif (sep_index == len(arg)):
                 raise ValueError("Error: No second value was given")
 
-            # print("parsing:", arg, "into:",
-            #       arg[0:sep_index], int(arg[sep_index+1:]))
-            items.update({arg[0:sep_index]: int(arg[sep_index+1:])})
+            key = arg[0:sep_index]
+            val = int(arg[sep_index+1:])
+            if key in items:
+                items[key] += val
+            else:
+                items.update({key: val})
         return items
 
     def show_analysis(self):
@@ -52,23 +60,25 @@ class Inventory():
 
         print(F"Most abundant: {most}", end='')
         print(F" ({self.items.get(most)}",
-              "unit)" if self.items.get(most) == 1 else "units)")
+                  "unit)" if self.items.get(most) == 1 else "units)")
 
         print(F"Least abundant: {least}", end='')
         print(F" ({self.items.get(least)}",
-              "unit)" if self.items.get(least) == 1 else "units)")
+                  "unit)" if self.items.get(least) == 1 else "units)")
 
     def show_categories(self):
         print("=== Item Categories ===")
-        moderate: dict[str, int] = {}
-        scarce: dict[str, int] = {}
         for key, value in self.items.items():
-            if self.percentage(value, self.items_count) >= 40:
-                moderate.update({key: value})
+            percentage = self.percentage(value, self.items_count)
+            if percentage > 66.66:
+                self.items_category["scarce"].update({key: value})
+            elif percentage > 33.33:
+                self.items_category["moderate"].update({key: value})
             else:
-                scarce.update({key: value})
-        print("Moderate:", moderate)
-        print("Scarce:", scarce)
+                self.items_category["abundant"].update({key: value})
+
+        for categ_name in self.items_category.keys():
+            print(categ_name+":", self.items_category[categ_name])
 
     def show_suggestion(self):
         low_stock: str = " "
@@ -131,3 +141,45 @@ if __name__ == "__main__":
     except Exception as e:
         print("Error, something went wrong:")
         print(e)
+
+# {
+        #     "players": {
+            #         "alice": {
+                #             "items": {
+                    #                 "pixel_sword": 1,
+                    #                 "code_bow": 1,
+                    #                 "health_byte": 1,
+                    #                 "quantum_ring": 3,
+                    #             },
+                #             "total_value": 1875,
+                #             "item_count": 6,
+                #         },
+            #         "bob": {
+                #             "items": {"code_bow": 3, "pixel_sword": 2},
+                #             "total_value": 900,
+                #             "item_count": 5,
+                #         },
+            #         "charlie": {
+                #             "items": {"pixel_sword": 1, "code_bow": 1},
+                #             "total_value": 350,
+                #             "item_count": 2,
+                #         },
+            #         "diana": {
+                #             "items": {
+                    #                 "code_bow": 3,
+                    #                 "pixel_sword": 3,
+                    #                 "health_byte": 3,
+                    #                 "data_crystal": 3,
+                    #             },
+                #             "total_value": 4125,
+                #             "item_count": 12,
+                #         },
+            #     },
+        #     "catalog": {
+            #         "pixel_sword": {"type": "weapon", "value": 150, "rarity": "common"},
+            #         "quantum_ring": {"type": "accessory", "value": 500, "rarity": "rare"},
+            #         "health_byte": {"type": "consumable", "value": 25, "rarity": "common"},
+            #         "data_crystal": {"type": "material", "value": 1000, "rarity": "legendary"},
+            #         "code_bow": {"type": "weapon", "value": 200, "rarity": "uncommon"},
+            #     },
+        # }
