@@ -6,9 +6,9 @@ class Inventory():
         self.items: dict[str, int] = self.parse_argument(argv)
         self.items_count: int = self.update_items_count()
         self.items_category: dict[str, dict[str, int]] = {
-                "scarce": {},
-                "moderate": {},
-                "abundant": {},
+                "Scarce": {},
+                "Moderate": {},
+                "Abundant": {},
                 }
 
     @staticmethod
@@ -69,11 +69,11 @@ class Inventory():
         for key, value in self.items.items():
             percentage = self.percentage(value, self.items_count)
             if percentage > 66.66:
-                self.items_category["scarce"].update({key: value})
+                self.items_category["Abundant"].update({key: value})
             elif percentage > 33.33:
-                self.items_category["moderate"].update({key: value})
+                self.items_category["Moderate"].update({key: value})
             else:
-                self.items_category["abundant"].update({key: value})
+                self.items_category["Scarce"].update({key: value})
 
         for categ_name in self.items_category.keys():
             print(categ_name+":", self.items_category[categ_name])
