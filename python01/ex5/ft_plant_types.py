@@ -64,14 +64,3 @@ if __name__ == "__main__":
     for plant in plant_list:
         plant.get_info()
         print()
-
-# $> python3 ft_plant_types.py
-# === Garden Plant Types ===
-# Rose (Flower): 25cm, 30 days, red color
-# Rose is blooming beautifully!
-
-# Oak (Tree): 500cm, 1825 days, 50cm diameter
-# Oak provides 78 square meters of shade
-
-# Tomato (Vegetable): 80cm, 90 days, summer harvest
-# Tomato is rich in vitamin C
