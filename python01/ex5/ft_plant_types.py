@@ -12,31 +12,31 @@ class Plant():
 class Flower(Plant):
     def __init__(self, name: str, height: int, age: int, clr: str) -> None:
         super().__init__(name, height, age)
-        self.color = clr
-
-    def bloom(self) -> None:
-        print(F"{self.name} is blooming beautifully!")
-        pass
+        self.color: str = clr
 
     def get_info(self) -> None:
         Plant.get_info(self)
         print(self.color, "color")
         self.bloom()
 
+    def bloom(self) -> None:
+        print(F"{self.name} is blooming beautifully!")
+
+
 
 class Tree(Plant):
-    def __init__(self, name: str, height: int, age: int,
-                 td: int) -> None:
+    def __init__(self, name: str, height: int, age: int, td: int) -> None:
         super().__init__(name, height, age)
         self.trunk_diameter: int = td
-
-    def produce_shade(self) -> None:
-        print(F"{self.name} provides N square meters of shade")
 
     def get_info(self) -> None:
         Plant.get_info(self)
         print(F"{self.trunk_diameter}cm diameter")
         self.produce_shade()
+
+    def produce_shade(self) -> None:
+        print(F"{self.name} provides N square meters of shade")
+
 
 
 class Vegetable(Plant):
@@ -54,12 +54,15 @@ class Vegetable(Plant):
 
 if __name__ == "__main__":
     print("=== Garden Plant Types ===")
-    plant_list: list[Plant] = []
 
-    plant_list += [(Flower("Rose", 25, 30, "red"))]
-    plant_list += [(Flower("Sakura", 25, 30, "pink"))]
-    plant_list += [(Tree("Oak", 500, 1825, 50))]
-    plant_list += [(Vegetable("Tomato", 80, 90, "summer", "vitamin C"))]
+    plant_list: list[Plant] = [
+        (Flower("Rose", 25, 30, "red")),
+        (Flower("Sakura", 25, 30, "pink")),
+        (Tree("Oak", 500, 1825, 50)),
+        (Tree("Boardleaf", 500, 1825, 50)),
+        (Vegetable("Tomato", 80, 90, "summer", "vitamin C")),
+        (Vegetable("Carrot", 80, 90, "spring", "vitamin C")),
+    ]
 
     for plant in plant_list:
         plant.get_info()
