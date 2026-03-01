@@ -105,8 +105,7 @@ def prime(n: int) -> Generator[int]:
                 break
             
 
-
-if __name__ == "__main__":
+def main()
     proccess_events()
 
     fib_gen = fibonacci(10)
@@ -118,6 +117,10 @@ if __name__ == "__main__":
     for n in prm_gen:
         print(n, end=', ')
     print()
+
+
+if __name__ == "__main__":
+    main()
 
 
 # $> python3 ft_data_stream.py
