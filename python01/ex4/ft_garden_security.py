@@ -23,7 +23,6 @@ class SecurePlant:
             print("Invalid operation attempted:", end=' ')
             print(F"age, {new_age}cm [REJECTED]")
             print("Security: Negative age rejected")
-            self.get_info()
             return
         self._age: int = new_age
         print(F"Age updated: {self._age} days [OK]")
