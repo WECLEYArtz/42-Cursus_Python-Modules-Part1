@@ -31,10 +31,9 @@ def simulate_days(plant_list: list[Plant], days: int) -> None:
 
 if __name__ == "__main__":
     days = 6
-    plant_list: list[Plant] = []
-
-    plant_list += [Plant("Rose", 25, 30)]
-    plant_list += [Plant("Sunflower", 80, 45)]
-    plant_list += [Plant("Cactus", 15, 120)]
-
+    plant_list: list[Plant] = [
+        Plant("Rose", 25, 30),
+        Plant("Sunflower", 80, 45),
+        Plant("Cactus", 15, 120),
+    ]
     simulate_days(plant_list, days)
