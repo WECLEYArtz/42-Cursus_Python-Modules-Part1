@@ -37,7 +37,7 @@ class SecurePlant:
         print(F"Current: {self.name} ({self._height}cm, {self._age} days)")
 
 
-def main():
+def main() -> None:
     print("=== Garden Security System ===")
     a = SecurePlant("Rose", 25, 30)
     print()

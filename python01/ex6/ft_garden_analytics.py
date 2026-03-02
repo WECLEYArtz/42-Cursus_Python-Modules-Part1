@@ -102,7 +102,7 @@ class GardenManager:
     create_garden_network = classmethod(create_garden_network)
 
     def add_plant(cls, owner: str,
-                  plant: Plant | FloweringPlant | PrizeFlower):
+                  plant: Plant | FloweringPlant | PrizeFlower) -> None:
         if owner not in cls.gardens:
             print("Error: no garden asigned for", owner)
             return
@@ -125,11 +125,11 @@ class GardenManager:
         score: dict[str, int] = {}
         gardens_count: int = 0
 
-        def toggle_height_validation(cls):
+        def toggle_height_validation(cls) -> None:
             cls.height_validation = False if cls.height_validation else True
         toggle_height_validation = classmethod(toggle_height_validation)
 
-        def show(cls):
+        def show(cls) -> None:
             print("Height validation test: ", cls.height_validation)
             print(F"Garden scores: - {cls.format_scores(cls.score)}")
             print(F"Total gardens managed: {cls.gardens_count}")
@@ -145,7 +145,7 @@ class GardenManager:
     gardens: dict[str, Garden] = {}
 
 
-def main():
+def main() -> None:
     print("=== Garden Management System Demo ===")
     GardenManager.create_garden_network("Alice")
     GardenManager.create_garden_network("Bob")

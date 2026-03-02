@@ -9,7 +9,7 @@ class Plant():
         Plant.call_count += 1
 
 
-def main():
+def main() -> None:
     print("=== Plant Factory Output ===")
     plant_list: list[Plant] = []
     plant_list += [(Plant("Rose", 25, 30)),]

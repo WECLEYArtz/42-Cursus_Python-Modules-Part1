@@ -4,13 +4,13 @@ class Plant():
         self.height_:    int = height
         self.age_:       int = age
 
-    def grow(self):
+    def grow(self) -> None:
         self.height_ += 1
 
-    def age(self):
+    def age(self) -> None:
         self.age_ += 1
 
-    def get_info(self):
+    def get_info(self) -> None:
         print(F"{self.name_}: {self.height_}cm, {self.age_} days old")
 
 
@@ -29,7 +29,7 @@ def simulate_days(plant_list: list[Plant], days: int) -> None:
         print()
 
 
-def main():
+def main() -> None:
     days = 6
     plant_list: list[Plant] = [
         Plant("Rose", 25, 30),

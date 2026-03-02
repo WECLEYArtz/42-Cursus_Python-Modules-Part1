@@ -51,7 +51,7 @@ class Vegetable(Plant):
         print(self.name, "is rich in", self.nutritional_value)
 
 
-def main():
+def main() -> None:
     print("=== Garden Plant Types ===")
 
     plant_list: list[Plant] = [
