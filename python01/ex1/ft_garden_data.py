@@ -5,7 +5,7 @@ class Plant():
         self.age_:       int = age
 
 
-if __name__ == "__main__":
+def main():
     plant_list: list[Plant] = []
 
     plant_list += [Plant("Rose", 25, 30)]
@@ -15,3 +15,6 @@ if __name__ == "__main__":
     print("=== Garden Plant Registry ===")
     for plant in plant_list:
         print(F"{plant.name_}: {plant.height_}cm, {plant.age_} days old")
+
+if __name__ == "__main__":
+    main()
