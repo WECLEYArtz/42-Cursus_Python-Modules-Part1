@@ -145,7 +145,7 @@ class GardenManager:
             return result[:-2]
 
 
-if __name__ == "__main__":
+def main():
     print("=== Garden Management System Demo ===")
     GardenManager.create_garden_network("Alice")
     GardenManager.create_garden_network("Bob")
@@ -165,3 +165,6 @@ if __name__ == "__main__":
     GardenManager.GardenStats.show()
     GardenManager.GardenStats.toggle_height_validation()
     GardenManager.GardenStats.show()
+
+if __name__ == "__main__":
+    main()
