@@ -23,7 +23,6 @@ class Flower(Plant):
         print(F"{self.name} is blooming beautifully!")
 
 
-
 class Tree(Plant):
     def __init__(self, name: str, height: int, age: int, td: int) -> None:
         super().__init__(name, height, age)
@@ -36,7 +35,6 @@ class Tree(Plant):
 
     def produce_shade(self) -> None:
         print(F"{self.name} provides N square meters of shade")
-
 
 
 class Vegetable(Plant):
