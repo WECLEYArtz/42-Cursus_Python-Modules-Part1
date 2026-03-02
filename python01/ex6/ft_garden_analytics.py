@@ -92,7 +92,6 @@ class GardenManager:
             print(F"{self._count['PrizeFlower']} flowering", end=', ')
             print(F"{self._count['FloweringPlant']} prize flowers")
 
-    @classmethod
     def create_garden_network(cls, owner: str) -> None:
         if owner not in cls.gardens:
             cls.gardens[owner] = cls.Garden(owner)
@@ -100,8 +99,8 @@ class GardenManager:
             cls.GardenStats.score[owner] = 0
         else:
             print("Error: attempted to add already existing owner:", owner)
+    create_garden_network = classmethod(create_garden_network)
 
-    @classmethod
     def add_plant(cls, owner: str,
                   plant: Plant | FloweringPlant | PrizeFlower):
         if owner not in cls.gardens:
@@ -112,49 +111,51 @@ class GardenManager:
             print("Error: can't add same existing plant")
             return
         cls.gardens[owner].append_plant(plant)
+    add_plant  = classmethod(add_plant)
 
-    @classmethod
     def get_garden(cls, owner: str) -> Garden | None:
         if owner in cls.gardens:
             return cls.gardens[owner]
         else:
             return None
+    get_garden  = classmethod(get_garden)
 
-    gardens: dict[str, Garden] = {}
 
     class GardenStats():
         height_validation: bool = True
         score: dict[str, int] = {}
         gardens_count: int = 0
 
-        @classmethod
         def toggle_height_validation(cls):
             cls.height_validation = False if cls.height_validation else True
+        toggle_height_validation = classmethod(toggle_height_validation)
 
-        @classmethod
         def show(cls):
             print("Height validation test: ", cls.height_validation)
             print(F"Garden scores: - {cls.format_scores(cls.score)}")
             print(F"Total gardens managed: {cls.gardens_count}")
+        show = classmethod(show)
 
-        @staticmethod
         def format_scores(score: dict[str, int]) -> str:
             result: str = ""
             for key in score:
                 result += F"{key}: {score[key]}, "
             return result[:-2]
+        format_scores = staticmethod(format_scores)
 
+    gardens: dict[str, Garden] = {}
 
 def main():
     print("=== Garden Management System Demo ===")
     GardenManager.create_garden_network("Alice")
     GardenManager.create_garden_network("Bob")
     print()
-    GardenManager.add_plant("Alice", Plant("Oak Tree", 101))
-    GardenManager.add_plant("Alice", FloweringPlant("Rose", 10, "red"))
+    GardenManager.add_plant("Alice", Plant("Oak Tree", 100))
+    GardenManager.add_plant("Alice", FloweringPlant("Rose", 25, "red"))
     GardenManager.add_plant("Alice",
-                            PrizeFlower("Sunflower", 100, "yellow", 10))
+                            PrizeFlower("Sunflower", 50, "yellow", 10))
     GardenManager.add_plant("Bob", Plant("Oak Tree", 92))
+    GardenManager.add_plant("Alice", Plant("Tree", 29))
     print()
     alice_garden = GardenManager.get_garden('Alice')
     if (alice_garden):
@@ -162,8 +163,6 @@ def main():
         print()
         alice_garden.report()
     print()
-    GardenManager.GardenStats.show()
-    GardenManager.GardenStats.toggle_height_validation()
     GardenManager.GardenStats.show()
 
 if __name__ == "__main__":
