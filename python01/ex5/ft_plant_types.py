@@ -34,7 +34,8 @@ class Tree(Plant):
         self.produce_shade()
 
     def produce_shade(self) -> None:
-        print(F"{self.name} provides N square meters of shade")
+        height = self.height
+        print(F"{self.name} provides {(3.14 * ((height/100) **2)):.0f} square meters of shade")
 
 
 class Vegetable(Plant):
