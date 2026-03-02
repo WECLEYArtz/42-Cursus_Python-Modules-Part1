@@ -111,15 +111,14 @@ class GardenManager:
             print("Error: can't add same existing plant")
             return
         cls.gardens[owner].append_plant(plant)
-    add_plant  = classmethod(add_plant)
+    add_plant = classmethod(add_plant)
 
     def get_garden(cls, owner: str) -> Garden | None:
         if owner in cls.gardens:
             return cls.gardens[owner]
         else:
             return None
-    get_garden  = classmethod(get_garden)
-
+    get_garden = classmethod(get_garden)
 
     class GardenStats():
         height_validation: bool = True
@@ -145,6 +144,7 @@ class GardenManager:
 
     gardens: dict[str, Garden] = {}
 
+
 def main():
     print("=== Garden Management System Demo ===")
     GardenManager.create_garden_network("Alice")
@@ -164,6 +164,7 @@ def main():
         alice_garden.report()
     print()
     GardenManager.GardenStats.show()
+
 
 if __name__ == "__main__":
     main()
