@@ -29,7 +29,7 @@ def simulate_days(plant_list: list[Plant], days: int) -> None:
         print()
 
 
-if __name__ == "__main__":
+def main():
     days = 6
     plant_list: list[Plant] = [
         Plant("Rose", 25, 30),
@@ -37,3 +37,7 @@ if __name__ == "__main__":
         Plant("Cactus", 15, 120),
     ]
     simulate_days(plant_list, days)
+
+
+if __name__ == "__main__":
+    main()

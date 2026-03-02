@@ -34,7 +34,7 @@ class Tree(Plant):
         self.produce_shade()
 
     def produce_shade(self) -> None:
-        squaremeter = (3.14 * ((self.height/100) **2))
+        squaremeter = (3.14 * ((self.height / 100) ** 2))
         print(F"{self.name} provides {squaremeter:.0f} square meters of shade")
 
 
@@ -51,7 +51,7 @@ class Vegetable(Plant):
         print(self.name, "is rich in", self.nutritional_value)
 
 
-if __name__ == "__main__":
+def main():
     print("=== Garden Plant Types ===")
 
     plant_list: list[Plant] = [
@@ -66,3 +66,7 @@ if __name__ == "__main__":
     for plant in plant_list:
         plant.get_info()
         print()
+
+
+if __name__ == "__main__":
+    main()

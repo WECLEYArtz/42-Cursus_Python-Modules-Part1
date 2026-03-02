@@ -37,10 +37,14 @@ class SecurePlant:
         print(F"Current: {self.name} ({self._height}cm, {self._age} days)")
 
 
-if __name__ == "__main__":
+def main():
     print("=== Garden Security System ===")
     a = SecurePlant("Rose", 25, 30)
     print()
     a.set_height(-5)
     print()
     a.get_info()
+
+
+if __name__ == "__main__":
+    main()

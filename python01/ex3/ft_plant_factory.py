@@ -9,15 +9,17 @@ class Plant():
         Plant.call_count += 1
 
 
-if __name__ == "__main__":
+def main():
     print("=== Plant Factory Output ===")
-
-    plant_list: list[Plant] = [
-        (Plant("Rose", 25, 30)),
-        (Plant("Sunflower", 80, 45)),
-        (Plant("Cactus", 15, 120)),
-        (Plant("Tree", 100, 120)),
-        (Plant("Weed", 15, 10)),
-    ]
+    plant_list: list[Plant] = []
+    plant_list += [(Plant("Rose", 25, 30)),]
+    plant_list += [(Plant("Sunflower", 80, 45)),]
+    plant_list += [(Plant("Cactus", 15, 120)),]
+    plant_list += [(Plant("Tree", 100, 120)),]
+    plant_list += [(Plant("Weed", 15, 10)),]
 
     print("Total plants created: ", Plant.call_count)
+
+
+if __name__ == "__main__":
+    main()
