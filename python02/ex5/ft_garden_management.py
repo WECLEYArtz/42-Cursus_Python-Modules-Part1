@@ -29,19 +29,17 @@ class GardenManager:
         self.garden: list[Plant] = []
         self.water_tank: int = 2
 
-    def delete(self):
-        pass
-
-    def add_plants(self, name: str, height: int, age: int):
-        try:
-            if not name:
-                raise ValueError(
-                        "Error adding plant: Plant name cannot be empty!")
-            self.garden.append(Plant(name, height, age))
-        except (ValueError) as e:
-            print(e)
-        else:
-            print("Added", name, "successfully")
+    def add_plants(self,plants: list[Plant]):
+        for plant in plants:
+            try:
+                if not plant.name:
+                    raise ValueError(
+                            "Error adding plant: Plant name cannot be empty!")
+                self.garden.append(plant)
+            except (ValueError) as e:
+                print(e)
+            else:
+                print("Added", plant.name, "successfully")
 
     def water_plants(self):
         print("Watering plants...")
@@ -67,7 +65,7 @@ class GardenManager:
     def close_water_system(self):
         print("Closing watering system (cleanup)")
 
-    def check_plant_health(self):
+    def check_plant_health(self, name: str):
         print("Checking plant health...")
         for plant in self.garden:
             try:
@@ -83,10 +81,10 @@ class GardenManager:
             raise HealthError(F"Water level {water} is too high (max 10)")
         if water < 1:
             raise HealthError(F"Water level {water} is too low (min 1)")
-        if sun > 10:
-            raise HealthError(F"Water level {sun} is too high (max 10)")
-        if sun < 1:
-            raise HealthError(F"Water level {sun} is too low (min 1)")
+        if sun > 12:
+            raise HealthError(F"Water level {sun} is too high (max 12)")
+        if sun < 2:
+            raise HealthError(F"Water level {sun} is too low (min 2)")
 
     def recovery_test(self):
         print("Testing error recovery...")
@@ -94,7 +92,7 @@ class GardenManager:
             if self.water_tank == 0:
                 raise WaterError(
                         "Caught GardenError: Not enough water in tank")
-        except WaterError as e:
+        except GardenError as e:
             print(e)
             print("System recovered and continuing...")
 
@@ -104,9 +102,11 @@ def test_garden_management():
         print("=== Garden Management System ===")
         garden = GardenManager()
         print("Adding plants to garden...")
-        garden.add_plants("tomato", 4, 8)
-        garden.add_plants("lettuce", 14, 8)
-        garden.add_plants("", 4, 8)
+        garden.add_plants([
+            Plant("tomato", 4, 8),
+            Plant("lettuce", 14, 8),
+            Plant("", 4, 8),
+            ])
         print()
         garden.water_plants()
         print()
