@@ -30,7 +30,7 @@ def test_plant_checks():
         print(F"Testing {title}...")
         try:
             check_plant_health(*test)
-        except (ValueError, ValueError, ValueError) as error:
+        except ValueError as error:
             print(error)
         print()
     print("All error raising tests completed!")
