@@ -65,7 +65,7 @@ class GardenManager:
     def close_water_system(self):
         print("Closing watering system (cleanup)")
 
-    def check_plant_health(self, name: str):
+    def check_plant_health(self):
         print("Checking plant health...")
         for plant in self.garden:
             try:
