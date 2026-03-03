@@ -33,7 +33,7 @@ def test_error_types():
         except FileNotFoundError as e:
             print(F"Caught FileNotFoundError: No such file '{e.filename}'")
         except KeyError as e:
-            print("Caught KeyError:", e )
+            print("Caught KeyError:", e)
         except Exception as e:
             print("Something went wrong:", e)
         print()
