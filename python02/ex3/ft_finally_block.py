@@ -38,21 +38,3 @@ def test_watering_system():
 
 if __name__ == "__main__":
     test_watering_system()
-
-# === Garden Watering System ===
-#
-# Testing normal watering...
-# Opening watering system
-# Watering tomato
-# Watering lettuce
-# Watering carrots
-# Closing watering system (cleanup)
-# Watering completed successfully!
-#
-# Testing with error...
-# Opening watering system
-# Watering tomato
-# Error: Cannot water None - invalid plant!
-# Closing watering system (cleanup)
-#
-# Cleanup always happens, even with errors!
