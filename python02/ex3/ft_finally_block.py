@@ -1,4 +1,4 @@
-class PlantError(Exception):
+class GardenError(Exception):
     def __init__(self, message: str):
         self.message: str = message
 
@@ -8,10 +8,13 @@ def water_plants(plant_list: list[str]):
     try:
         for plant in plant_list:
             if not plant:
-                raise PlantError("invalid plant!")
+                raise GardenError("Cannot water None - invalid plant!")
             print("Watering", plant)
-    except PlantError as error:
-        print("Error: Cannot water None -", error.message)
+    except GardenError as error:
+        print("Error:", error.message)
+        return
+    except TypeError as e:
+        print("Error: Cannot water - Recieved wrong Type -", e)
         return
     finally:
         print("Closing watering system (cleanup)")
@@ -20,18 +23,16 @@ def water_plants(plant_list: list[str]):
 
 def test_watering_system():
     print("=== Garden Watering System ===")
+    print()
+
     print("Testing normal watering...")
-    try:
-        water_plants(["tomato", "lettuce", "carrots"])
-    except PlantError:
-        pass
+    water_plants(["tomato", "lettuce", "carrots"])
     print()
+
     print("Testing normal error...")
-    try:
-        water_plants(["tomato", None])
-    except PlantError:
-        pass
+    water_plants(["tomato", None])
     print()
+
     print("Cleanup always happens, even with errors!")
 
 
