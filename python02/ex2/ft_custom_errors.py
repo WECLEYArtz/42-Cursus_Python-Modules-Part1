@@ -1,6 +1,5 @@
 class GardenError(Exception):
-    def __init__(self, message: str):
-        self.message: str = message
+    pass
 
 
 class PlantError(GardenError):
@@ -45,18 +44,3 @@ if __name__ == "__main__":
             print("Caught a garden error:", error)
     print()
     print("All custom error types work correctly!")
-
-
-# === Custom Garden Errors Demo ===
-#
-# Testing PlantError...
-# Caught PlantError: The tomato plant is wilting!
-#
-# Testing WaterError...
-# Caught WaterError: Not enough water in the tank!
-#
-# Testing catching all garden errors...
-# Caught a garden error: The tomato plant is wilting!
-# Caught a garden error: Not enough water in the tank!
-#
-# All custom error types work correctly!
