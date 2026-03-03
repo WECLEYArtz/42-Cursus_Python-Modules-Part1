@@ -44,7 +44,8 @@ def test_error_types():
         garden_operations("ZeroDivisionError")
         garden_operations("FileNotFoundError")
         garden_operations("KeyError")
-    except (ValueError, FileNotFoundError, KeyError, ZeroDivisionError, Exception):
+    except (ValueError, FileNotFoundError, KeyError, ZeroDivisionError,
+            Exception):
         print("Caught an error, but program continues!\n")
     print("All error types tested successfully!")
 
