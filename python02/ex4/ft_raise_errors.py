@@ -15,6 +15,7 @@ def check_plant_health(plant_name: str, water_level: int, sunlight_hours: int):
     if sunlight_hours > 12:
         raise ValueError(
                 F"Error: Sunlight hours {sunlight_hours} is too high (max 12)")
+
     print("Plant", plant_name, "is healthy!")
 
 
@@ -32,6 +33,8 @@ def test_plant_checks():
             check_plant_health(*test)
         except ValueError as error:
             print(error)
+        except TypeError as error:
+            print("Error: TypeError -", error)
         print()
     print("All error raising tests completed!")
 
