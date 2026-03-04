@@ -1,6 +1,5 @@
 class GardenError(Exception):
-    def __init__(self, message: str) -> None:
-        self.message: str = message
+    pass
 
 
 class WaterError(GardenError):

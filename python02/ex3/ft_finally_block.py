@@ -1,6 +1,5 @@
 class GardenError(Exception):
-    def __init__(self, message: str):
-        self.message: str = message
+    pass
 
 
 def water_plants(plant_list: list[str]) -> None:
@@ -11,7 +10,7 @@ def water_plants(plant_list: list[str]) -> None:
                 raise GardenError("Cannot water None - invalid plant!")
             print("Watering", plant)
     except GardenError as error:
-        print("Error:", error.message)
+        print("Error:", error)
         return
     except TypeError as e:
         print("Error: Cannot water - Recieved wrong Type -", e)
