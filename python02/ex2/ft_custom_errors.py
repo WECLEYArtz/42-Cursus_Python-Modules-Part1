@@ -10,11 +10,11 @@ class WaterError(GardenError):
     pass
 
 
-def harvest_plants():
+def harvest_plants() -> None:
     raise PlantError("The tomato plant is wilting!")
 
 
-def water_plants():
+def water_plants() -> None:
     raise WaterError("Not enough water in the tank!")
 
 

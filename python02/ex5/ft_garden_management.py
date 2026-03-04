@@ -1,5 +1,5 @@
 class GardenError(Exception):
-    def __init__(self, message: str):
+    def __init__(self, message: str) -> None:
         self.message: str = message
 
 
@@ -17,10 +17,10 @@ class Plant():
         self.water_level:    int = water
         self.sun_level:       int = sun
 
-    def water(self):
+    def water(self) -> None:
         self.water_level += 1
 
-    def sun(self):
+    def sun(self) -> None:
         self.sun_level += 1
 
 
@@ -29,7 +29,7 @@ class GardenManager:
         self.garden: list[Plant] = []
         self.water_tank: int = 2
 
-    def add_plants(self, plants: list[Plant]):
+    def add_plants(self, plants: list[Plant]) -> None:
         for plant in plants:
             try:
                 if not plant.name:
@@ -41,7 +41,7 @@ class GardenManager:
             else:
                 print("Added", plant.name, "successfully")
 
-    def water_plants(self):
+    def water_plants(self) -> None:
         print("Watering plants...")
         self.open_water_system()
         try:
@@ -59,13 +59,13 @@ class GardenManager:
         finally:
             self.close_water_system()
 
-    def open_water_system(self):
+    def open_water_system(self) -> None:
         print("Opening watering system")
 
-    def close_water_system(self):
+    def close_water_system(self) -> None:
         print("Closing watering system (cleanup)")
 
-    def check_plant_health(self):
+    def check_plant_health(self) -> None:
         print("Checking plant health...")
         for plant in self.garden:
             try:
@@ -76,7 +76,7 @@ class GardenManager:
                 print(F"{plant.name}: healthy", end=' ')
                 print(F"(water: {plant.water_level}, sun: {plant.sun_level})")
 
-    def examin_health(self, water: int, sun: int):
+    def examin_health(self, water: int, sun: int) -> None:
         if water > 10:
             raise HealthError(F"Water level {water} is too high (max 10)")
         if water < 1:
@@ -86,7 +86,7 @@ class GardenManager:
         if sun < 2:
             raise HealthError(F"Water level {sun} is too low (min 2)")
 
-    def recovery_test(self):
+    def recovery_test(self) -> None:
         print("Testing error recovery...")
         try:
             if self.water_tank == 0:
@@ -97,7 +97,7 @@ class GardenManager:
             print("System recovered and continuing...")
 
 
-def test_garden_management():
+def test_garden_management() -> None:
     try:
         print("=== Garden Management System ===")
         print()

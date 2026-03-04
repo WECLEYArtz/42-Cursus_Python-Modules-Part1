@@ -1,4 +1,4 @@
-def garden_operations(test_num: str):
+def garden_operations(test_num: str) -> None:
     match test_num:
         case "ValueError":
             _ = int("abc")
@@ -13,7 +13,7 @@ def garden_operations(test_num: str):
             print("Why did we even reach here?...")
 
 
-def test_error_types():
+def test_error_types() -> None:
     tests: list[str] = [
             "ValueError",
             "ZeroDivisionError",

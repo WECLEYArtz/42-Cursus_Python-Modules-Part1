@@ -3,7 +3,7 @@ class GardenError(Exception):
         self.message: str = message
 
 
-def water_plants(plant_list: list[str]):
+def water_plants(plant_list: list[str]) -> None:
     print("Opening watering system")
     try:
         for plant in plant_list:
@@ -21,7 +21,7 @@ def water_plants(plant_list: list[str]):
     print("Watering completed successfully!")
 
 
-def test_watering_system():
+def test_watering_system() -> None:
     print("=== Garden Watering System ===")
     print()
 
