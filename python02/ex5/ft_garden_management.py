@@ -29,7 +29,7 @@ class GardenManager:
         self.garden: list[Plant] = []
         self.water_tank: int = 2
 
-    def add_plants(self,plants: list[Plant]):
+    def add_plants(self, plants: list[Plant]):
         for plant in plants:
             try:
                 if not plant.name:
@@ -100,46 +100,29 @@ class GardenManager:
 def test_garden_management():
     try:
         print("=== Garden Management System ===")
+        print()
         garden = GardenManager()
+
         print("Adding plants to garden...")
         garden.add_plants([
             Plant("tomato", 4, 8),
             Plant("lettuce", 14, 8),
             Plant("", 4, 8),
-            ])
+        ])
         print()
+
         garden.water_plants()
         print()
+
         garden.check_plant_health()
         print()
+
         garden.recovery_test()
         print()
+
         print("Garden management system test complete!")
     except Exception as e:
         print("Caught Error:", e)
 
 
 test_garden_management()
-
-# === Garden Management System ===
-#
-# Adding plants to garden...
-# Added tomato successfully
-# Added lettuce successfully
-# Error adding plant: Plant name cannot be empty!
-#
-# Watering plants...
-# Opening watering system
-# Watering tomato - success
-# Watering lettuce - success
-# Closing watering system (cleanup)
-#
-# Checking plant health...
-# tomato: healthy (water: 5, sun: 8)
-# Error checking lettuce: Water level 15 is too high (max 10)
-#
-# Testing error recovery...
-# Caught GardenError: Not enough water in tank
-# System recovered and continuing...
-#
-# Garden management system test complete!
