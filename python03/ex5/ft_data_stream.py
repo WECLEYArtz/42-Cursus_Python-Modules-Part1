@@ -1,21 +1,6 @@
 from typing import Generator
 
-events_count = 1000
-
-summaries: list[str] = [
-        "leveled up",
-        "killed monster",
-        "died",
-        "defeated a boss",
-        "joined the world",
-        "found treasure",
-        ]
-players: dict[str, int] = {
-        "alice": 5,
-        "bob": 12,
-        "charlie": 7
-        }
-player_names: list[str] = [player for player in players]
+events_count = 1000000000
 
 def random(min: int, max: int):
     a: int = 1140671485
@@ -25,53 +10,91 @@ def random(min: int, max: int):
     seed = 0
     while True:
         seed = (a * seed + c) % mod
-        yield int(seed / (mod-1) * (max - min) + min)
+        random_num  = int(seed / (mod-1) * (max - min) + min)
+        if (random_num in range(min, max)):
+            yield int(seed / (mod-1) * (max - min) + min)
+
+class Game():
+    summaries: list[str] = [
+            "leveled up",
+            "killed monster",
+            "died",
+            "defeated a boss",
+            "joined the world",
+            "found treasure",
+            ]
+    players: dict[str, int] = {
+            "alice": 5,
+            "bob": 12,
+            "charlie": 7,
+            # "jeff": 10
+            }
+    player_names: list[str] = [player for player in players]
+
+    player_random_gen: Generator[int, None, None] = random(0, len(player_names))
+    summaries_random_gen: Generator[int, None, None] = random(0, len(summaries))
+
+    @classmethod
+    def update_level(cls, event: dict[str, int | str]):
+        if (event['summary'] == "leveled up"):
+            # print("+++ Level-up for ", event['player'], )
+            # print("+++ Was: ",cls.players[event['player']])
+            cls.players[event['player']] += 1
+            # print("+++ Now: ",cls.players[event['player']])
+
+    @classmethod
+    def event_stream(cls) -> Generator[dict[str, int | str], None, None]:
+        iters: int = 1
+
+        while iters <= events_count:
+            player_name: str = cls.player_names[next(cls.player_random_gen)]
+            event: dict[str, int | str] = {
+                    "id": iters,
+                    "player": player_name,
+                    "level": cls.players[player_name],
+                    "summary": cls.summaries[next(cls.summaries_random_gen)],
+                    }
+            cls.update_level(event)
+            yield (event)
+            iters += 1
+
+        
 
 
-def event_stream() -> Generator[dict[str, int | str]]:
-    iters: int = 0
-    player_random_gen = random(0, len(player_names))
-    summaries_random_gen = random(0, len(summaries))
-    while iters < events_count:
-        player_name: str = player_names[next(player_random_gen)]
-        event: dict[str, int | str] = {
-                "id": iters,
-                "player": player_names[next(player_random_gen)],
-                "level": players[player_name],
-                "summary": summaries[next(summaries_random_gen)],
-                }
-        iters += 1
-        yield (event)
 
 
 def proccess_events():
-
     heigh_level_players = 0
     treasure_events = 0
     level_up_events = 0
-    event_stearm_gen = event_stream()
+
+    event_stearm_gen = Game.event_stream()
 
     print("=== Game Data Stream Processor ===")
     print()
     print("Processing", events_count, "game events...")
     print()
 
-    for event in event_stearm_gen:
-        if event["summary"] == "leveled up":
-            level_up_events += 1
-            players[event["player"]] += 1
-            print("--- level_up_events ---", level_up_events)
-        elif event["summary"] == "found treasure":
-            treasure_events += 1
-            print("--- treasure_events ---", treasure_events)
-        if players[event["player"]] >= 10:
-            heigh_level_players += 1
+    def display(event: dict[str, int | str]):
+        print(F"Event {event['id']}:", end=' ')
+        print(F"Player {event['player']}", end=' ')
+        print(F"(level {event['level']})", end=' ')
+        print(F"{event['summary']}")
 
-        print(F"Event {event["id"]}:", end=' ')
-        print(F"Player {event["player"]}", end=' ')
-        print(F"(level {event["level"]})", end=' ')
-        print(F"{event["summary"]}")
 
+    try:
+        for event in event_stearm_gen:
+            if event["summary"] == "leveled up":
+                level_up_events += 1
+            elif event["summary"] == "found treasure":
+                treasure_events += 1
+            if event['level'] >= 10:
+                heigh_level_players += 1
+            display(event)
+    except KeyboardInterrupt:
+        print("Stoppig...")
+    except Exception as e:
+        print("Error: Something went wrong - ", e, "Stopping...")
     print()
     print("=== Stream Analytics ===")
     print("Total events processed:", events_count)
@@ -82,7 +105,8 @@ def proccess_events():
     print("Processing time: 0.045 seconds")
 
 
-def fibonacci(n: int) -> Generator[int]:
+def fibonacci(n: int) -> Generator[int, None, None]:
+    print(f"Fibonacci sequence (first {n})")
     a, b = 0, 1
     while (n):
         yield a
@@ -90,22 +114,26 @@ def fibonacci(n: int) -> Generator[int]:
         a, b = b, a + b
 
 
-def prime(n: int) -> Generator[int]:
-    print(f"Fibonacci sequence (first {n})")
-    i = 2
+def next_prime(n: int) -> Generator[int, None, None]:
+    print(f"Prime numbers sequence (first {n})")
+    def is_prime(num: int) -> bool:
+        i = 2
+        while i*i <= num:
+            if num%i == 0:
+                return False
+            i += 1
+        return True
 
-    while True
-    for i in :
-        for j in range(2, ):
-            if i % j == 0 and i == j:
-                yield i
-                n -= 1
-                break
-            if i % j == 0 and i != j:
-                break
-            
 
-def main()
+    start_point = 2
+    while n:
+        if (is_prime(start_point)):
+            yield start_point
+            n -= 1
+        start_point += 1
+
+
+def main():
     proccess_events()
 
     fib_gen = fibonacci(10)
@@ -113,7 +141,7 @@ def main()
         print(n, end=', ')
     print()
 
-    prm_gen = prime(5)
+    prm_gen = next_prime(5)
     for n in prm_gen:
         print(n, end=', ')
     print()
@@ -121,25 +149,3 @@ def main()
 
 if __name__ == "__main__":
     main()
-
-
-# $> python3 ft_data_stream.py
-# === Game Data Stream Processor ===
-#
-# Processing 1000 game events...
-#
-# Event 1: Player alice (level 5) killed monster
-# Event 2: Player bob (level 12) found treasure
-# Event 3: Player charlie (level 8) leveled up
-# ...
-#
-# === Stream Analytics ===
-# Total events processed: 1000
-# High-level players (10+): 342
-# Treasure events: 89
-# Level-up events: 156
-# Memory usage: Constant (streaming)
-# Processing time: 0.045 seconds
-#
-# === Generator Demonstration ===
-# Fibonacci sequence (first 10): 0, 1, 1, 2, 3, 5, 8,
