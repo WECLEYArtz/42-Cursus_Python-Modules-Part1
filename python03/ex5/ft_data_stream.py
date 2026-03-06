@@ -131,17 +131,23 @@ def next_prime(n: int) -> Generator[int, None, None]:
 def main():
     proccess_events()
 
-    print("")
-    fib_gen = fibonacci(10)
-    for n in fib_gen:
-        print(n, end=', ')
-    print()
+    try:
+        print("")
+        fib_gen = fibonacci(10)
+        for n in fib_gen:
+            print(n, end=', ')
+        print()
+    except KeyboardInterrupt:
+        print("Stoppig...")
 
-    prm_gen = next_prime(5)
-    for n in prm_gen:
-        print(n, end=', ')
-    print()
 
+    try:
+        prm_gen = next_prime(50)
+        for n in prm_gen:
+            print(n, end=', ')
+        print()
+    except KeyboardInterrupt:
+        print("Stoppig...")
 
 if __name__ == "__main__":
     main()
