@@ -67,23 +67,24 @@ class GardenManager:
     def check_plant_health(self) -> None:
         print("Checking plant health...")
         for plant in self.garden:
-            try:
-                self.examin_health(plant.water_level, plant.sun_level)
-            except HealthError as e:
-                print(F"Error checking {plant.name}:", e)
-            else:
-                print(F"{plant.name}: healthy", end=' ')
-                print(F"(water: {plant.water_level}, sun: {plant.sun_level})")
-
-    def examin_health(self, water: int, sun: int) -> None:
-        if water > 10:
-            raise HealthError(F"Water level {water} is too high (max 10)")
-        if water < 1:
-            raise HealthError(F"Water level {water} is too low (min 1)")
-        if sun > 12:
-            raise HealthError(F"Water level {sun} is too high (max 12)")
-        if sun < 2:
-            raise HealthError(F"Water level {sun} is too low (min 2)")
+            if plant.water_level > 10:
+                raise HealthError(
+                    F"Error checking {plant.name}: " +
+                    F"Water level {plant.water_level} is too high (max 10)")
+            if plant.water_level < 1:
+                raise HealthError(
+                    F"Error checking {plant.name}: " +
+                    F"Water level {plant.water_level} is too low (min 1)")
+            if plant.sun_level > 12:
+                raise HealthError(
+                    F"Error checking {plant.name}: " +
+                    F"Water level {plant.sun_level} is too high (max 12)")
+            if plant.sun_level < 2:
+                raise HealthError(
+                    F"Error checking {plant.name}: " +
+                    F"Water level {plant.sun_level} is too low (min 2)")
+            print(F"{plant.name}: healthy", end=' ')
+            print(F"(water: {plant.water_level}, sun: {plant.sun_level})")
 
     def recovery_test(self) -> None:
         print("Testing error recovery...")
@@ -113,8 +114,12 @@ def test_garden_management() -> None:
         garden.water_plants()
         print()
 
-        garden.check_plant_health()
-        print()
+        try:
+            garden.check_plant_health()
+        except HealthError as e:
+            print(e)
+        finally:
+            print()
 
         garden.recovery_test()
         print()
@@ -124,4 +129,5 @@ def test_garden_management() -> None:
         print("Caught Error:", e)
 
 
-test_garden_management()
+if __name__ == "__main__":
+    test_garden_management()
