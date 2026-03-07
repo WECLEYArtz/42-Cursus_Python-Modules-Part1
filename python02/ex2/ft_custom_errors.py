@@ -20,8 +20,8 @@ def water_plants() -> None:
 
 def test_custom_errors() -> None:
     tests = {
-        "WaterError": harvest_plants,
-        "PlantError": water_plants
+        "PlantError": harvest_plants,
+        "WaterError": water_plants
     }
     print("=== Custom Garden Errors Demo ===\n")
     for title in tests:
