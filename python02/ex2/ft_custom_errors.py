@@ -30,10 +30,8 @@ if __name__ == "__main__":
             tests[title]()
         except WaterError as error:
             print("Caught WaterError:", error)
-            pass
         except PlantError as error:
             print("Caught PlantError:", error)
-            pass
         print()
 
     print("Testing catching all garden errors...")
