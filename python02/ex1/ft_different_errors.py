@@ -35,6 +35,8 @@ def test_error_types() -> None:
             print("Caught KeyError:", e)
         except Exception as e:
             print("Something went wrong:", e)
+        else:
+            print("pass")
         print()
 
     try:
