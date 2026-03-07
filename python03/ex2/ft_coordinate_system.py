@@ -2,9 +2,10 @@ import sys
 import math
 
 
-def show_distance(x: int, y: int, z: int) -> None:
+def show_distance(cords: tuple[int, int, int]) -> None:
+    x, y, z = cords
     dist = (math.sqrt((x)**2 + (y)**2 + (z)**2))
-    print(F"Distance between (0, 0, 0) and {cords}: {dist}")
+    print(F"Distance between (0, 0, 0) and {cords}: {dist:.2f}")
 
 
 def unpack(cords: tuple[int, int, int]) -> None:
@@ -14,27 +15,18 @@ def unpack(cords: tuple[int, int, int]) -> None:
     print(F"Coordinates: X={x}, Y={y}, Z={z}")
 
 
-def parse_cords(arg: str) -> tuple[int, int, int]:
-
-    tmp: list[int] = []
-    cords: tuple[int, int, int]
-    for value in values:
-        try:
-            tmp += [int(value)]
-        except ValueError:
-            raise ValueError(value)
-    cords = (tmp[0], tmp[1], tmp[2])
-    print("Parsing coordinates:", arg)
+def parse_cords(values: list[str]) -> tuple[int, int, int]:
+    cords = (int(values[0]), int(values[1]), int(values[2]))
     print("Parsed position:", cords)
     return cords
 
 
-if __name__ == "__main__":
-    print("=== Game Coordinate System ===")
+def main() -> None:
+    print("=== Game Coordinate System ===\n")
 
     cords = (10, 20, 5)
     print("Position created:", cords)
-    show_distance(*cords)
+    show_distance(cords)
     print()
 
     for arg in sys.argv[1:]:
@@ -42,17 +34,21 @@ if __name__ == "__main__":
 
         if values.__len__() != 3:
             print("Error parsing coordinates:", end=' ')
-            print("Must pass exactly 3 values, unmatched requirement in:",
-                  arg)
+            print("Must pass exactly 3 values, unmatched requirement in:", arg)
             continue
         try:
-            cords = parse_cords(arg)
-            show_distance(*cords)
-        except ValueError as val:
-            error = F"invalid literal for int() with base 10: '{val}'"
-            print("Parsing invalid coordinates:", error)
-            print("Error parsing coordinates:", )
-            print(f"Error details - Type: ValueError, Args: ({error})")
+            print("Parsing coordinates:", arg)
+            cords = parse_cords(values)
+            show_distance(cords)
+        except ValueError as e:
+            print("Error parsing coordinates:", e)
+            print(f'Error details - Type: ValueError, Args: ("{e}")')
         print()
-
     unpack(cords)
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except Exception as e:
+        print("Unexcpecetd error", e)
