@@ -7,14 +7,14 @@ def water_plants(plant_list: list[str]) -> None:
     try:
         for plant in plant_list:
             if not plant:
-                raise GardenError("Cannot water None - invalid plant!")
+                raise GardenError(F"Cannot water {plant} - invalid plant!")
             print("Watering", plant)
     except GardenError as error:
-        print("Error:", error)
-        return
+        return (print("Error:", error))
     except TypeError as e:
-        print("Error: Cannot water - Recieved wrong Type -", e)
-        return
+        return (print("Error: Cannot water - Recieved wrong Type -", e))
+    except Exception as e:
+        return (print("Unexcpecetd error", e))
     finally:
         print("Closing watering system (cleanup)")
     print("Watering completed successfully!")
