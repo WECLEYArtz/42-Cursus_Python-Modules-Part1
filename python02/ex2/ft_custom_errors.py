@@ -18,7 +18,7 @@ def water_plants() -> None:
     raise WaterError("Not enough water in the tank!")
 
 
-if __name__ == "__main__":
+def test_custom_errors():
     tests = {
         "WaterError": harvest_plants,
         "PlantError": water_plants
@@ -42,3 +42,7 @@ if __name__ == "__main__":
             print("Caught a garden error:", error)
     print()
     print("All custom error types work correctly!")
+
+
+if __name__ == "__main__":
+    test_custom_errors()
