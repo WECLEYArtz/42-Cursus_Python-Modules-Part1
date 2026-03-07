@@ -22,8 +22,6 @@ def test_temperature_input() -> None:
             temp = check_temperature(test)
         except ValueError as e:
             print(e)
-        except Exception as e:
-            print("Something went wrong:", e)
         else:
             print(F"Temperature {temp}°C is perfect for plants!")
         print()
@@ -31,4 +29,7 @@ def test_temperature_input() -> None:
 
 
 if __name__ == "__main__":
-    test_temperature_input()
+    try:
+        test_temperature_input()
+    except Exception as e:
+        print("Unexcpecetd error", e)

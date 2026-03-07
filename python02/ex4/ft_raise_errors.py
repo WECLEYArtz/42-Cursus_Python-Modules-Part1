@@ -22,7 +22,6 @@ def check_plant_health(
 
 def test_plant_checks() -> None:
     print("=== Garden Plant Health Checker ===\n")
-
     tests: dict[str, tuple[str, int, int]] = {
             "good values": ("tomato", 5, 5),
             "empty plant name": ("", 5, 5),
@@ -43,4 +42,7 @@ def test_plant_checks() -> None:
 
 
 if __name__ == "__main__":
-    test_plant_checks()
+    try:
+        test_plant_checks()
+    except Exception as e:
+        print("Unexcpecetd error", e)

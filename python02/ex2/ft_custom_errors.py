@@ -45,4 +45,7 @@ def test_custom_errors():
 
 
 if __name__ == "__main__":
-    test_custom_errors()
+    try:
+        test_custom_errors()
+    except Exception as e:
+        print("Unexcpecetd error", e)

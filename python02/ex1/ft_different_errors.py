@@ -33,8 +33,6 @@ def test_error_types() -> None:
             print(F"Caught FileNotFoundError: No such file '{e.filename}'")
         except KeyError as e:
             print("Caught KeyError:", e)
-        except Exception as e:
-            print("Something went wrong:", e)
         else:
             print("pass")
         print()
@@ -45,11 +43,13 @@ def test_error_types() -> None:
         garden_operations("ZeroDivisionError")
         garden_operations("FileNotFoundError")
         garden_operations("KeyError")
-    except (ValueError, FileNotFoundError, KeyError, ZeroDivisionError,
-            Exception):
+    except (ValueError, FileNotFoundError, KeyError, ZeroDivisionError):
         print("Caught an error, but program continues!\n")
     print("All error types tested successfully!")
 
 
 if __name__ == "__main__":
-    test_error_types()
+    try:
+        test_error_types()
+    except Exception as e:
+        print("Unexcpecetd error", e)

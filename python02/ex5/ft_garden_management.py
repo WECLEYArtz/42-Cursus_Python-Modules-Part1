@@ -108,30 +108,30 @@ class GardenManager:
 
 
 def test_garden_management() -> None:
-    try:
-        print("=== Garden Management System ===\n")
-        garden = GardenManager()
+    print("=== Garden Management System ===\n")
+    garden = GardenManager()
 
-        print("Adding plants to garden...")
-        garden.add_plants([
-            Plant("tomato", 4, 8),
-            Plant("lettuce", 14, 8),
-            Plant("", 4, 8),
-        ])
-        print()
+    print("Adding plants to garden...")
+    garden.add_plants([
+        Plant("tomato", 4, 8),
+        Plant("lettuce", 14, 8),
+        Plant("", 4, 8),
+    ])
+    print()
 
-        garden.water_plants()
-        print()
+    garden.water_plants()
+    print()
 
-        garden.health_checker()
+    garden.health_checker()
 
-        garden.recovery_test()
-        print()
+    garden.recovery_test()
+    print()
 
-        print("Garden management system test complete!")
-    except Exception as e:
-        print("Caught Error:", e)
+    print("Garden management system test complete!")
 
 
 if __name__ == "__main__":
-    test_garden_management()
+    try:
+        test_garden_management()
+    except Exception as e:
+        print("Unexcpecetd error", e)

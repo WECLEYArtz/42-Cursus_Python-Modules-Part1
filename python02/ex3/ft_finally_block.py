@@ -13,8 +13,6 @@ def water_plants(plant_list: list[str]) -> None:
         return (print("Error:", error))
     except TypeError as e:
         return (print("Error: Cannot water - Recieved wrong Type -", e))
-    except Exception as e:
-        return (print("Unexcpecetd error", e))
     finally:
         print("Closing watering system (cleanup)")
     print("Watering completed successfully!")
@@ -35,4 +33,7 @@ def test_watering_system() -> None:
 
 
 if __name__ == "__main__":
-    test_watering_system()
+    try:
+        test_watering_system()
+    except Exception as e:
+        print("Unexcpecetd error", e)
