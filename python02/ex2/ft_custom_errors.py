@@ -18,7 +18,7 @@ def water_plants() -> None:
     raise WaterError("Not enough water in the tank!")
 
 
-def test_custom_errors():
+def test_custom_errors() -> None:
     tests = {
         "WaterError": harvest_plants,
         "PlantError": water_plants
