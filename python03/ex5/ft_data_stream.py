@@ -140,7 +140,6 @@ def main():
     except KeyboardInterrupt:
         print("Stoppig...")
 
-
     try:
         prm_gen = next_prime(50)
         for n in prm_gen:
@@ -148,6 +147,7 @@ def main():
         print()
     except KeyboardInterrupt:
         print("Stoppig...")
+
 
 if __name__ == "__main__":
     main()

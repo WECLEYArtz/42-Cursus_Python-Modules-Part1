@@ -2,8 +2,8 @@ import sys
 
 
 def main():
-    no_arg_message = "\
-    No scores provided. Usage: python3 ft_score_analytics.py <score1> <score2> ..."
+    no_arg_message = "No scores provided. Usage:" +\
+            " python3 ft_score_analytics.py <score1> <score2> ..."
 
     scores = [arg for arg in sys.argv[1:] if arg]
     print("=== Player Score Analytics ===")

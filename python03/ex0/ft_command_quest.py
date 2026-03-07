@@ -1,5 +1,6 @@
 import sys
 
+
 def main() -> None:
     argv_clean = [arg for arg in sys.argv[1:] if arg]
 
