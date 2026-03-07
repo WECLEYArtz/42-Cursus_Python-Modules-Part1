@@ -21,8 +21,7 @@ def water_plants(plant_list: list[str]) -> None:
 
 
 def test_watering_system() -> None:
-    print("=== Garden Watering System ===")
-    print()
+    print("=== Garden Watering System ===\n")
 
     print("Testing normal watering...")
     water_plants(["tomato", "lettuce", "carrots"])

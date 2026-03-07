@@ -21,8 +21,7 @@ def check_plant_health(
 
 
 def test_plant_checks() -> None:
-    print("=== Garden Plant Health Checker ===")
-    print()
+    print("=== Garden Plant Health Checker ===\n")
 
     tests: dict[str, tuple[str, int, int]] = {
             "good values": ("tomato", 5, 5),

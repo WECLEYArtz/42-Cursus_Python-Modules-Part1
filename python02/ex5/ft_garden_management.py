@@ -99,8 +99,7 @@ class GardenManager:
 
 def test_garden_management() -> None:
     try:
-        print("=== Garden Management System ===")
-        print()
+        print("=== Garden Management System ===\n")
         garden = GardenManager()
 
         print("Adding plants to garden...")

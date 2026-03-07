@@ -1,5 +1,5 @@
-def garden_operations(test_num: str) -> None:
-    match test_num:
+def garden_operations(test_name: str) -> None:
+    match test_name:
         case "ValueError":
             _ = int("abc")
         case "ZeroDivisionError":
@@ -20,8 +20,7 @@ def test_error_types() -> None:
             "FileNotFoundError",
             "KeyError",
             ]
-    print("=== Garden Error Types Demo ===")
-    print()
+    print("=== Garden Error Types Demo ===\n")
     for name in tests:
         try:
             print("Testing", name+"...")

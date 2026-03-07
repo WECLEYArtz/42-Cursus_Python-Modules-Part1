@@ -23,7 +23,7 @@ if __name__ == "__main__":
         "WaterError": harvest_plants,
         "PlantError": water_plants
     }
-    print("=== Custom Garden Errors Demo ===")
+    print("=== Custom Garden Errors Demo ===\n")
     for title in tests:
         print(F"Testing {title}...")
         try:
