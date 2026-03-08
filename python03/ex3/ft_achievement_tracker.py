@@ -1,5 +1,4 @@
-if __name__ == "__main__":
-
+def main() -> None:
     players: dict[str, set[str]] = {
         "alice": {
                 'first_kill',
@@ -20,22 +19,22 @@ if __name__ == "__main__":
     }
     achv_sets_list = [players[name] for name in players]
 
-    print("=== Achievement Tracker System ===")
+    print("=== Achievement Tracker System ===\n")
     for player in players:
         print(F"Player {player} achievements:", players[player])
     print()
 
     print("=== Achievement Analytics ===")
-    unique_achv = set.union(*achv_sets_list)
+    unique_achv: set[str] = set.union(*achv_sets_list)
     print("All unique achievements:", unique_achv)
     print("Total unique achievements:", len(unique_achv))
     print()
 
-    common_achv = set.intersection(*achv_sets_list)
+    common_achv: set[str] = set.intersection(*achv_sets_list)
     print("Common to all players: ", common_achv)
     print()
 
-    rare_achv = set()
+    rare_achv: set[str] = set()
     for _ in achv_sets_list:
         rare_achv |= achv_sets_list[0] - set.union(*achv_sets_list[1:])
         achv_sets_list = achv_sets_list[-1:] + achv_sets_list[:-1]
@@ -50,3 +49,10 @@ if __name__ == "__main__":
 
     print("Bob unique:",
           players["bob"] - players["alice"].intersection(players["bob"]))
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except Exception as e:
+        print("Unexcpecetd error", e)
