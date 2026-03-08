@@ -1,6 +1,10 @@
 import sys
 
 
+class InventoryError(Exception):
+    pass
+
+
 class Inventory():
     def __init__(self, argv: list[str]):
         self.items: dict[str, int] = self.parse_argument(argv)
@@ -21,7 +25,7 @@ class Inventory():
 
         for arg in argv:
             if (not arg):
-                raise ValueError("Error: No value was given")
+                raise InventoryError("Error: No value was given")
 
             sep_index: int = 0
             for char in arg:
@@ -30,9 +34,9 @@ class Inventory():
                 sep_index += 1
 
             if (sep_index == 0):
-                raise ValueError("Error: No first value was given")
+                raise InventoryError("Error: No first value was given")
             elif (sep_index == len(arg)):
-                raise ValueError("Error: No second value was given")
+                raise InventoryError("Error: No second value was given")
 
             key = arg[0:sep_index]
             val = int(arg[sep_index+1:])
@@ -119,7 +123,7 @@ class Inventory():
         return count
 
 
-if __name__ == "__main__":
+def main():
     try:
         inv1 = Inventory(sys.argv[1:])
         print()
@@ -134,8 +138,11 @@ if __name__ == "__main__":
         inv1.show_suggestion()
         print()
         inv1.show_properties_demo()
-    except ValueError as e:
-        print(e)
+    except InventoryError as e:
+        print("Couldn't proccess inventory", e)
     except Exception as e:
-        print("Error, something went wrong:")
-        print(e)
+        print("Error, something went wrong:", e)
+
+
+if __name__ == "__main__":
+    main()
