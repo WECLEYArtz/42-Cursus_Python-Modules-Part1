@@ -15,10 +15,13 @@ def main() -> None:
         print("Arguments received:", len(argv_clean))
         i: int = 0
         while i < len(argv_clean):
-            print(F"Argument{i + 1}:", argv_clean[i])
+            print(F"Argument {i + 1}:", argv_clean[i])
             i += 1
     print("Total arguments:", len(sys.argv))
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        print("Unexcpecetd error", e)
