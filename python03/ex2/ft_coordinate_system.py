@@ -2,14 +2,16 @@ import sys
 import math
 
 
-def show_distance(cords: tuple[int, int, int]) -> None:
-    x, y, z = cords
-    dist = (math.sqrt((x)**2 + (y)**2 + (z)**2))
-    print(F"Distance between (0, 0, 0) and {cords}: {dist:.2f}")
+def show_distance(cords_a: tuple[int, int, int],
+                  cords_b: tuple[int, int, int]) -> None:
+    x1, y1, z1 = cords_a
+    x2, y2, z2 = cords_b
+    dist = (math.sqrt((x2-x1)**2 + (y2-y1)**2 + (z2-z1)**2))
+    print(F"Distance between {cords_a} and {cords_b}: {dist:.2f}")
 
 
 def unpack(cords: tuple[int, int, int]) -> None:
-    (x, y, z) = cords
+    x, y, z = cords
     print("Unpacking demonstration:")
     print("Player at x=0, y=0, z=0")
     print(F"Coordinates: X={x}, Y={y}, Z={z}")
@@ -24,9 +26,10 @@ def parse_cords(values: list[str]) -> tuple[int, int, int]:
 def main() -> None:
     print("=== Game Coordinate System ===\n")
 
-    cords = (10, 20, 5)
-    print("Position created:", cords)
-    show_distance(cords)
+    cords_a = (-0, 990, 100)
+    cords_b = (10, 20, 5)
+    print("Position created:", cords_b)
+    show_distance(cords_a, cords_b)
     print()
 
     for arg in sys.argv[1:]:
@@ -38,13 +41,16 @@ def main() -> None:
             continue
         try:
             print("Parsing coordinates:", arg)
-            cords = parse_cords(values)
-            show_distance(cords)
+            cords_b = parse_cords(values)
+            show_distance(cords_a, cords_b)
         except ValueError as e:
             print("Error parsing coordinates:", e)
             print(f'Error details - Type: ValueError, Args: ("{e}")')
         print()
-    unpack(cords)
+    try:
+        unpack(cords_b)
+    except ValueError as e:
+        print("Failed unpacking", e)
 
 
 if __name__ == "__main__":
