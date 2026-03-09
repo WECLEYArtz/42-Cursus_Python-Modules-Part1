@@ -10,10 +10,10 @@ def show_distance(cords_a: tuple[int, int, int],
     print(F"Distance between {cords_a} and {cords_b}: {dist:.2f}")
 
 
-def unpack(cords: tuple[int, int, int]) -> None:
-    x, y, z = cords
+def unpack(cords_b: tuple[int, int, int]) -> None:
+    x, y, z = cords_b
     print("Unpacking demonstration:")
-    print("Player at x=0, y=0, z=0")
+    print(F"Player at x={x}, y={y}, z={z}")
     print(F"Coordinates: X={x}, Y={y}, Z={z}")
 
 
@@ -36,15 +36,14 @@ def verify_cords(cords: tuple[int, int, int]) -> None:
 def main() -> None:
     print("=== Game Coordinate System ===\n")
 
-    cords_a = (-0, 990, 100)
-    cords_b = (0, 0, 0)
+    cords_a = (0, 0, 0)
+    cords_b = (10, 20, 5)
 
     try:
         verify_cords(cords_a)
         verify_cords(cords_b)
     except ValueError as e:
-        message, cords = e.args
-        return (print(message, cords))
+        return (print(*e.args))
 
     print("Position created:", cords_b)
     show_distance(cords_a, cords_b)
@@ -58,12 +57,12 @@ def main() -> None:
             print("Must pass exactly 3 values, unmatched requirement in:", arg)
             continue
         try:
-            print("Parsing coordinates:", arg)
+            print(F'Parsing coordinates: "{arg}"')
             cords_b = parse_cords(values)
             show_distance(cords_a, cords_b)
         except ValueError as e:
-            print("Error parsing coordinates:", e)
-            print(f'Error details - Type: ValueError, Args: ("{e}")')
+            print("Error parsing coordinates:", *e.args)
+            print(f'Error details - Type: ValueError, Args: {e.args}')
         print()
 
     # Late Demonstration
