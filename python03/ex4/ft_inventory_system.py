@@ -26,7 +26,6 @@ class Inventory():
             raise InventoryError("No scores provided\nUsage:" +
                                  " python3 ft_inventory_system.py" +
                                  "<item1:count> <item2:count> ...")
-
         items: dict[str, int] = {}
 
         for arg in argv:
@@ -49,18 +48,18 @@ class Inventory():
                 items.update({key: val})
         return items
 
-    def show_analysis(self):
+    def show_analysis(self) -> None:
         print("=== Inventory System Analysis ===")
         print("Total items in inventory:", self.items_count)
         print("Unique item types:", self.get_unique_count())
 
-    def show_current_info(self):
+    def show_current_info(self) -> None:
         print("=== Current Inventory ===")
         for k, v in self.items.items():
             print(F"{k}: {v} units", end='')
             print(F"({self.percentage(v, self.items_count):.1f}%)")
 
-    def show_statistics(self):
+    def show_statistics(self) -> None:
         most: str = max(self.items, key=self.items.get)
         least: str = min(self.items, key=self.items.get)
         print("=== Inventory Statistics ===")
@@ -71,7 +70,7 @@ class Inventory():
         print(F"least abundant: {least} ({self.items.get(least)}", end=' ')
         print("unit)" if self.items.get(least) == 1 else "units)")
 
-    def show_categories(self):
+    def show_categories(self) -> None:
         print("=== Item Categories ===")
         for key, value in self.items.items():
             percentage = self.percentage(value, self.items_count)
@@ -85,7 +84,7 @@ class Inventory():
         for categ_name in self.items_category.keys():
             print(categ_name+":", self.items_category[categ_name])
 
-    def show_suggestion(self):
+    def show_suggestion(self) -> None:
         low_stock: str = " "
         print("=== Management Suggestions ===")
         print("Restock needed:", end='')
@@ -95,7 +94,7 @@ class Inventory():
                 low_stock += key+", "
         print(low_stock[:-2])
 
-    def show_properties_demo(self):
+    def show_properties_demo(self) -> None:
         keys: str = ""
         values: str = ""
 
@@ -119,14 +118,14 @@ class Inventory():
         item_names = [item for item in self.items]
         return (len({*item_names}))
 
-    def update_items_count(self):
+    def update_items_count(self) -> int:
         count = 0
         for _, v in self.items.items():
             count += v
         return count
 
 
-def main():
+def main() -> None:
     try:
         inv1 = Inventory(sys.argv[1:])
         print()
