@@ -1,5 +1,4 @@
 def recover(vault: str):
-    print("=== CYBER ARCHIVES - DATA RECOVERY SYSTEM ===")
     print("Accessing Storage Vault:", vault)
     with open(vault) as f:
         print("Connection established...\n")
@@ -11,6 +10,7 @@ def recover(vault: str):
 
 
 if __name__ == "__main__":
+    print("=== CYBER ARCHIVES - DATA RECOVERY SYSTEM ===")
     vault: str = "ancient_fragment.txt"
     try:
         recover(vault)
