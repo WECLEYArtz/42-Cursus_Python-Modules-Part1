@@ -27,19 +27,16 @@ def main() -> None:
     print("=== Achievement Analytics ===")
     unique_achv: set[str] = set.union(*achv_sets_list)
     print("All unique achievements:", unique_achv)
-    print("Total unique achievements:", len(unique_achv))
-    print()
+    print("Total unique achievements:", len(unique_achv), '\n')
 
     common_achv: set[str] = set.intersection(*achv_sets_list)
-    print("Common to all players: ", common_achv)
-    print()
+    print("Common to all players: ", common_achv, '\n')
 
     rare_achv: set[str] = set()
     for _ in achv_sets_list:
         rare_achv |= achv_sets_list[0] - set.union(*achv_sets_list[1:])
         achv_sets_list = achv_sets_list[-1:] + achv_sets_list[:-1]
-    print("Rare achievements (1 player):", rare_achv)
-    print()
+    print("Rare achievements (1 player):", rare_achv, "\n")
 
     print("Alice vs Bob common:",
           players["alice"].intersection(players["bob"]))
