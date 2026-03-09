@@ -1,9 +1,9 @@
 from typing import Generator
 
-events_count = 1000000000
+events_count = 1000
 
 
-def random(min: int, max: int):
+def random(min: int, max: int) -> Generator[int, None, None]:
     a: int = 1140671485
     c: int = 12820163
     mod: int = 2**24
@@ -29,7 +29,6 @@ class Game():
             "alice": 5,
             "bob": 12,
             "charlie": 7,
-            # "jeff": 10
             }
     player_names: list[str] = [player for player in players]
 
@@ -37,9 +36,10 @@ class Game():
     summaries_rando_gen: Generator[int, None, None] = random(0, len(summaries))
 
     @classmethod
-    def update_level(cls, event: dict[str, int | str]):
+    def update_level(cls, event: dict[str, int | str]) -> None:
         if (event['summary'] == "leveled up"):
-            cls.players[event['player']] += 1
+            name: str = event['player']
+            cls.players[name] += 1
 
     @classmethod
     def event_stream(cls) -> Generator[dict[str, int | str], None, None]:
@@ -49,8 +49,8 @@ class Game():
         while iters <= events_count:
             player_name: str = cls.player_names[next(cls.player_rando_gen)]
             event: dict[str, int | str] = {
-                    "id": iters,
                     "player": player_name,
+                    "id": iters,
                     "level": cls.players[player_name],
                     "summary": cls.summaries[next(cls.summaries_rando_gen)],
                     }
@@ -59,7 +59,7 @@ class Game():
             iters += 1
 
 
-def proccess_events():
+def proccess_events() -> None:
     event_stearm_gen = Game.event_stream()
 
     heigh_level_players = 0
@@ -71,7 +71,7 @@ def proccess_events():
     print("Processing", events_count, "game events...")
     print()
 
-    def display(event: dict[str, int | str]):
+    def display(event: dict[str, int | str]) -> None:
         print(F"Event {event['id']}:", end=' ')
         print(F"Player {event['player']}", end=' ')
         print(F"(level {event['level']})", end=' ')
@@ -129,7 +129,7 @@ def next_prime(n: int) -> Generator[int, None, None]:
         start_point += 1
 
 
-def main():
+def main() -> None:
     proccess_events()
     print()
 
