@@ -23,11 +23,29 @@ def parse_cords(values: list[str]) -> tuple[int, int, int]:
     return cords
 
 
+def verify_cords(cords: tuple[int, int, int]) -> None:
+    if len(cords) != 3:
+        raise ValueError("Error creating cords, must be 3 points, got:",
+                         cords)
+    for point in cords:
+        if point.__class__.__name__ != "int":
+            raise ValueError("Error creating cords," +
+                             F"Incorrect type of point:{point}", cords)
+
+
 def main() -> None:
     print("=== Game Coordinate System ===\n")
 
     cords_a = (-0, 990, 100)
-    cords_b = (10, 20, 5)
+    cords_b = (0, 0, 0)
+
+    try:
+        verify_cords(cords_a)
+        verify_cords(cords_b)
+    except ValueError as e:
+        message, cords = e.args
+        return (print(message, cords))
+
     print("Position created:", cords_b)
     show_distance(cords_a, cords_b)
     print()
@@ -47,10 +65,9 @@ def main() -> None:
             print("Error parsing coordinates:", e)
             print(f'Error details - Type: ValueError, Args: ("{e}")')
         print()
-    try:
-        unpack(cords_b)
-    except ValueError as e:
-        print("Failed unpacking", e)
+
+    # Late Demonstration
+    unpack(cords_b)
 
 
 if __name__ == "__main__":
