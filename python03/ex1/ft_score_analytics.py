@@ -1,7 +1,7 @@
 import sys
 
 
-def main():
+def main() -> None:
     no_arg_message = "No scores provided. Usage:" +\
             " python3 ft_score_analytics.py <score1> <score2> ..."
 
@@ -23,18 +23,17 @@ def main():
             print(F"X Error: Can't convert '{score}' to integer")
         except Exception as e:
             print("Unexcpecetd error", e)
-    scores = scores_filtered
 
-    if not len(scores):
+    if not len(scores_filtered):
         return (print("\nNo valid values to make statistics of"))
 
-    print("Scores processed:", scores)
-    print("Total players:", len(scores))
-    print("Total score:", sum(scores))
-    print(F"Average score: { sum(scores) / len(scores):.1f}")
-    print("High score:", max(scores))
-    print("Low score:", min(scores))
-    print("Score range:", max(scores) - min(scores))
+    print("scores_filtered processed:", scores_filtered)
+    print("Total players:", len(scores_filtered))
+    print("Total score:", sum(scores_filtered))
+    print(F"Average score: { sum(scores_filtered) / len(scores_filtered):.1f}")
+    print("High score:", max(scores_filtered))
+    print("Low score:", min(scores_filtered))
+    print("Score range:", max(scores_filtered) - min(scores_filtered))
 
 
 if __name__ == "__main__":
