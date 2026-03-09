@@ -21,12 +21,15 @@ class Inventory():
 
     @staticmethod
     def parse_argument(argv: list[str]) -> dict[str, int]:
+        argv = [arg for arg in argv if argv]
+        if not len(argv):
+            raise InventoryError("No scores provided\nUsage:" +
+                                 " python3 ft_inventory_system.py" +
+                                 "<item1:count> <item2:count> ...")
+
         items: dict[str, int] = {}
 
         for arg in argv:
-            if (not arg):
-                raise InventoryError("Error: No value was given")
-
             sep_index: int = 0
             for char in arg:
                 if char == ':':
@@ -34,9 +37,9 @@ class Inventory():
                 sep_index += 1
 
             if (sep_index == 0):
-                raise InventoryError("Error: No first value was given")
-            elif (sep_index == len(arg)):
-                raise InventoryError("Error: No second value was given")
+                raise InventoryError("No first value given (empty:...)")
+            elif (sep_index == len(arg) - 1):
+                raise InventoryError("No second value given (...:empty)")
 
             key = arg[0:sep_index]
             val = int(arg[sep_index+1:])
@@ -127,21 +130,27 @@ def main():
     try:
         inv1 = Inventory(sys.argv[1:])
         print()
+
         inv1.show_analysis()
         print()
+
         inv1.show_current_info()
         print()
+
         inv1.show_statistics()
         print()
+
         inv1.show_categories()
         print()
+
         inv1.show_suggestion()
         print()
+
         inv1.show_properties_demo()
     except InventoryError as e:
-        print("Couldn't proccess inventory", e)
+        print("Error - Couldn't proccess inventory:", e)
     except Exception as e:
-        print("Error, something went wrong:", e)
+        print("Error - something went wrong:", e)
 
 
 if __name__ == "__main__":
