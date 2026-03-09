@@ -1,6 +1,6 @@
 from typing import Generator
 
-events_count = 1000
+events_count = 1000000000
 
 
 def random(min: int, max: int):
@@ -13,7 +13,7 @@ def random(min: int, max: int):
         seed = (a * seed + c) % mod
         random_num = int(seed / (mod - 1) * (max - min) + min)
         if (random_num in range(min, max)):
-            yield int(seed / (mod-1) * (max - min) + min)
+            yield random_num
 
 
 class Game():
@@ -96,6 +96,7 @@ def proccess_events():
     print("High-level players (10+):", heigh_level_players)
     print("Treasure events:", treasure_events)
     print("Level-up events:", level_up_events)
+    print()
     print("Memory usage: Constant (streaming)")
     print("Processing time: 0.045 seconds")
 
@@ -130,18 +131,15 @@ def next_prime(n: int) -> Generator[int, None, None]:
 
 def main():
     proccess_events()
+    print()
 
     try:
-        print("")
         fib_gen = fibonacci(10)
         for n in fib_gen:
             print(n, end=', ')
         print()
-    except KeyboardInterrupt:
-        print("Stoppig...")
 
-    try:
-        prm_gen = next_prime(50)
+        prm_gen = next_prime(5)
         for n in prm_gen:
             print(n, end=', ')
         print()
@@ -150,4 +148,7 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        print("Unexpected error:", e)
