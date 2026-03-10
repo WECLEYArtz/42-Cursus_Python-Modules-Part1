@@ -1,13 +1,13 @@
 def archive(vault: str, entries: list[str]) -> None:
     print("Initializing new storage unit:", vault)
 
-    with open(vault, 'w') as f:
-        print("Storage unit created successfully...\n")
-        print("Inscribing preservation data...")
-        for entry in entries:
-            print(entry)
-            _ = f.write(entry+"\n")
-        f.close()
+    f = open(vault, 'w')
+    print("Storage unit created successfully...\n")
+    print("Inscribing preservation data...")
+    for entry in entries:
+        print(entry)
+        _ = f.write(entry+"\n")
+    f.close()
 
     print()
     print("Data inscription complete. Storage unit sealed.")
