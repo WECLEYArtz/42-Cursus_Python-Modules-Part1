@@ -37,6 +37,3 @@ if __name__ == "__main__":
         main()
     except Exception as e:
         print("\nUnexpected error:", e.__class__.__name__, e)
-
-# Vault automatically sealed upon completion
-# All vault operations completed with maximum security.
