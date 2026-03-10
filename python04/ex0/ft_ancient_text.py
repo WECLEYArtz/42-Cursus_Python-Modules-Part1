@@ -1,4 +1,4 @@
-def recover(vault: str):
+def recover(vault: str) -> None:
     print("Accessing Storage Vault:", vault)
     with open(vault) as f:
         print("Connection established...\n")
@@ -16,7 +16,9 @@ if __name__ == "__main__":
         recover(vault)
     except PermissionError:
         print("\nError - No permission to access", vault)
+    except FileNotFoundError:
+        print("\nError - No file with the name:", vault)
     except IsADirectoryError:
-        print("\nError - The vault", vault, "must be a file, found directory")
+        print("\nError - The vault", vault, "must be file. It's a directory")
     except Exception as e:
         print("\nUnexpected error:", e.__class__.__name__, e)
