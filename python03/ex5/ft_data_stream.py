@@ -1,9 +1,9 @@
-from typing import Generator
+import typing
 
 events_count = 1000
 
 
-def random(min: int, max: int) -> Generator[int, None, None]:
+def random(min: int, max: int) -> typing.Generator[int, None, None]:
     a: int = 1140671485
     c: int = 12820163
     mod: int = 2**24
@@ -32,8 +32,11 @@ class Game():
             }
     player_names: list[str] = [player for player in players]
 
-    player_rando_gen: Generator[int, None, None] = random(0, len(player_names))
-    summaries_rando_gen: Generator[int, None, None] = random(0, len(summaries))
+    player_rando_gen: typing.Generator[int, None, None]
+    player_rando_gen = random(0, len(player_names))
+
+    summaries_rando_gen: typing.Generator[int, None, None]
+    summaries_rando_gen = random(0, len(summaries))
 
     @classmethod
     def update_level(cls, event: dict[str, int | str]) -> None:
@@ -42,7 +45,7 @@ class Game():
             cls.players[name] += 1
 
     @classmethod
-    def event_stream(cls) -> Generator[dict[str, int | str], None, None]:
+    def stream(cls) -> typing.Generator[dict[str, int | str], None, None]:
         iters: int = 1
 
         _ = next(cls.summaries_rando_gen)  # Randomization offsetting
@@ -60,7 +63,7 @@ class Game():
 
 
 def proccess_events() -> None:
-    event_stearm_gen = Game.event_stream()
+    event_stearm_gen = Game.stream()
 
     heigh_level_players = 0
     treasure_events = 0
@@ -101,7 +104,7 @@ def proccess_events() -> None:
     print("Processing time: 0.045 seconds")
 
 
-def fibonacci(n: int) -> Generator[int, None, None]:
+def fibonacci(n: int) -> typing.Generator[int, None, None]:
     print(f"Fibonacci sequence (first {n})")
     a, b = 0, 1
     while (n):
@@ -110,7 +113,7 @@ def fibonacci(n: int) -> Generator[int, None, None]:
         a, b = b, a + b
 
 
-def next_prime(n: int) -> Generator[int, None, None]:
+def next_prime(n: int) -> typing.Generator[int, None, None]:
     print(f"Prime numbers sequence (first {n})")
 
     def is_prime(num: int) -> bool:
