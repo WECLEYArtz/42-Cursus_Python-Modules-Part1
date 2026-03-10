@@ -54,7 +54,8 @@ def main() -> None:
 
         if values.__len__() != 3:
             print("Error parsing coordinates:", end=' ')
-            print("Must pass exactly 3 values, unmatched requirement in:", arg)
+            print("Must pass exactly 3 values separated with ',' " +
+                  F"- unmatched requirement in:'{arg}'")
             continue
         try:
             print(F'Parsing coordinates: "{arg}"')
