@@ -54,20 +54,3 @@ if __name__ == "__main__":
     except Exception as e:
         print("RESPONSE: Unexpected error -", e.__class__.__name__ +
               "\nSTATUS: Crisis handled, blackhole arrived")
-
-
-# === CYBER ARCHIVES - CRISIS RESPONSE SYSTEM ===
-
-# CRISIS ALERT: Attempting access to 'lost_archive.txt'...
-# RESPONSE: Archive not found in storage matrix
-# STATUS: Crisis handled, system stable
-
-# CRISIS ALERT: Attempting access to 'classified_vault.txt'...
-# RESPONSE: Security protocols deny access
-# STATUS: Crisis handled, security maintained
-
-# ROUTINE ACCESS: Attempting access to 'standard_archive.txt'...
-# SUCCESS: Archive recovered - ``Knowledge preserved for humanity''
-# STATUS: Normal operations resumed
-
-# All crisis scenarios handled successfully. Archives secure.
