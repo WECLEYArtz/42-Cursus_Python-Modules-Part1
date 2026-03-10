@@ -23,8 +23,8 @@ class Inventory():
     def parse_argument(argv: list[str]) -> dict[str, int]:
         argv = [arg for arg in argv if argv]
         if not len(argv):
-            raise InventoryError("No scores provided\nUsage:" +
-                                 " python3 ft_inventory_system.py" +
+            raise InventoryError("No scores provided\nUsage: " +
+                                 "python3 ft_inventory_system.py " +
                                  "<item1:count> <item2:count> ...")
         items: dict[str, int] = {}
 
