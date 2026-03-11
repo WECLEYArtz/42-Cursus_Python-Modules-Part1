@@ -52,4 +52,4 @@ if __name__ == "__main__":
     try:
         main()
     except Exception as e:
-        print("Unexcpecetd error", e)
+        print(F"Unexcpecetd error - {e.__class__.__name__}:", e)
