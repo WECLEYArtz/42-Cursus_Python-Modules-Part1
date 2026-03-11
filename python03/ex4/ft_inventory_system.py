@@ -42,6 +42,8 @@ class Inventory():
 
             key = arg[0:sep_index]
             val = int(arg[sep_index+1:])
+            if val < 0:
+                raise InventoryError("Niggative values are not allowed")
             if key in items:
                 items[key] += val
             else:
@@ -56,8 +58,11 @@ class Inventory():
     def show_current_info(self) -> None:
         print("=== Current Inventory ===")
         for k, v in self.items.items():
-            print(F"{k}: {v} units", end='')
-            print(F"({self.percentage(v, self.items_count):.1f}%)")
+            print(F"{k}: {v} units", end=' ')
+            if (not v):
+                print("0.0%")
+            else:
+                print(F"({self.percentage(v, self.items_count):.1f}%)")
 
     def show_statistics(self) -> None:
         most: str = max(self.items, key=self.items.get)
@@ -73,6 +78,8 @@ class Inventory():
     def show_categories(self) -> None:
         print("=== Item Categories ===")
         for key, value in self.items.items():
+            if (not value):
+                continue
             percentage = self.percentage(value, self.items_count)
             if percentage > 66.66:
                 self.items_category["Abundant"].update({key: value})
@@ -89,9 +96,10 @@ class Inventory():
         print("=== Management Suggestions ===")
         print("Restock needed:", end='')
 
-        for key, value in self.items.items():
-            if self.percentage(value, self.items_count) <= 10:
-                low_stock += key+", "
+        low_stock_list = [key for key, value in self.items.items()
+                          if value == min([v for v in self.items.values()])]
+        for item in low_stock_list:
+            low_stock += item+', '
         print(low_stock[:-2])
 
     def show_properties_demo(self) -> None:
