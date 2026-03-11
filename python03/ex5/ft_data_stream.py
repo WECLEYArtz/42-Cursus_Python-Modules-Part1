@@ -104,17 +104,17 @@ def proccess_events() -> None:
     print("Processing time: 0.045 seconds")
 
 
-def fibonacci(n: int) -> typing.Generator[int, None, None]:
-    print(f"Fibonacci sequence (first {n})")
+def fibonacci(times: int) -> typing.Generator[int, None, None]:
+    print(f"Fibonacci sequence (first {times}):", end=' ')
     a, b = 0, 1
-    while (n):
+    while (times):
         yield a
-        n -= 1
+        times -= 1
         a, b = b, a + b
 
 
-def next_prime(n: int) -> typing.Generator[int, None, None]:
-    print(f"Prime numbers sequence (first {n})")
+def next_prime(times: int) -> typing.Generator[int, None, None]:
+    print(f"Prime numbers (first {times}):", end=' ')
 
     def is_prime(num: int) -> bool:
         i = 2
@@ -125,17 +125,16 @@ def next_prime(n: int) -> typing.Generator[int, None, None]:
         return True
 
     start_point = 2
-    while n:
+    while times:
         if (is_prime(start_point)):
             yield start_point
-            n -= 1
+            times -= 1
         start_point += 1
 
 
 def main() -> None:
     proccess_events()
     print()
-
     try:
         fib_gen = fibonacci(10)
         for n in fib_gen:
