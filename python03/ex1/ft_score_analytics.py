@@ -25,7 +25,7 @@ def main() -> None:
             print("Unexcpecetd error", e)
 
     if not len(scores_filtered):
-        return (print("\nNo valid values to make statistics of"))
+        return (print("\nNo valid values to make statistics of."))
 
     print("scores_filtered processed:", scores_filtered)
     print("Total players:", len(scores_filtered))
