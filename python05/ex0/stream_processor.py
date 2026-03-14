@@ -1,6 +1,6 @@
 from typing import Any, List, Dict, Union, Optional
 from abc import ABC, abstractmethod
-del Union, Optional, Dict
+del Optional, Dict
 
 
 class DataProcessor(ABC):
@@ -111,7 +111,7 @@ def main():
     print("Initializing Numeric Processor...")
 
     numProccess = NumericProcessor()
-    num_data: List[int] = [1, 2, 3, 4, 5]
+    num_data: List[Union[int, float]] = [1, 2, 3, 4, 5]
     print(numProccess.process(num_data), end='\n\n')
 
     # ========================================================================
@@ -131,4 +131,7 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        print("Unexpected error:", e)
