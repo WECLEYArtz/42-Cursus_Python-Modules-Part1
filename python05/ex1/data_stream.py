@@ -45,14 +45,14 @@ class StreamProcessor():
                 "EVENT": 0,
                 }
 
-    def proccess(self, data_batch: Dict[str, List[str]]):
-        stream_classes = {
+    def proccess(self, data_batch: Dict[str, List[str]]) -> None:
+        stream_classes: dict[str, Any] = {
                 "SENSOR": SensorStream,
                 "TRANS": TransactionStream,
                 "EVENT": EventStream
                 }
         stream_names: List[str] = [name for name in stream_classes]
-        stream_col: List[SensorStream | TransactionStream | EventStream] = []
+        stream_col: List[DataStream] = []
 
         for data in data_batch:
             stream_name: str = data.split('_')[0]
@@ -80,7 +80,7 @@ class StreamProcessor():
 
     def update_processed(self,
                          stream_state: Dict[str, Union[str, int, float]],
-                         stream_name: str):
+                         stream_name: str) -> None:
 
         for v in stream_state.values():
             if v != 'N/A':
