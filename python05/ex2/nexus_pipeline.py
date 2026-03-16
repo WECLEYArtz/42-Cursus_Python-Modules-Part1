@@ -6,6 +6,7 @@ del Optional
 #   STAGES
 # ============================================================================
 
+
 class ProcessingStage(Protocol):
     """Duck-typing interface for pipeline stages."""
 
@@ -66,22 +67,22 @@ class OutputStage():
                 else '(high)' if data["value"] > 50
                 else '(normal)'
             )
-            print( F'Output: Processed {data["sensor"]} reading: '
-                F'{data["value"]}°{data["unit"]}  {status}'
-            )
+            print(F'Output: Processed {data["sensor"]} reading: ' +
+                  F'{data["value"]}°{data["unit"]}  {status}'
+                  )
         elif isinstance(data, str):
             # CSV string: capitalize the first field; count the second field
             fields = data.split(',')
             print(
-                F'Output: {fields[0].capitalize()} activity logged: '
-                F'{data.count(fields[1])} {fields[1]} processed'
-            )
+                    F'Output: {fields[0].capitalize()} activity logged: ' +
+                    F'{data.count(fields[1])} {fields[1]} processed'
+                    )
         elif isinstance(data, List):
             # Sensor stream: report count and average temperature
             print(
-                F'Output: Stream summary: {len(data)} '
-                F'readings, avg: {sum(data)/len(data)}°C'
-            )
+                    F'Output: Stream summary: {len(data)} ' +
+                    F'readings, avg: {sum(data)/len(data)}°C'
+                    )
         return data
 
 
@@ -92,14 +93,14 @@ class OutputStage():
 class ProcessingPipeline(ABC):
     """Abstract base class shared by all three adapter types.
     Holds an ordered list of stages and enforces a polymorphism:
-    every adapter must implement its own process() method.
+        every adapter must implement its own process() method.
     """
 
     RECOVERY_MSG: str = (
-        "Error detected in Stage {stage_num}: {error}\n"
-        "Recovery initiated: Switching to backup processor\n"
-        "Recovery successful: Pipeline restored, processing resumed"
-    )
+            "Error detected in Stage {stage_num}: {error}\n"
+            "Recovery initiated: Switching to backup processor\n"
+            "Recovery successful: Pipeline restored, processing resumed"
+            )
 
     def __init__(self, pipeline_id: str) -> None:
         self.id: str = pipeline_id
@@ -185,7 +186,7 @@ class CSVAdapter(ProcessingPipeline):
 
     def process(self, data: Any) -> Any:
         """Run all stages in order; absorb any failure with a log message."""
-        stage_result: Anny = data
+        stage_result: Any = data
         try:
             for stage in self.stages:
                 stage_result = stage.process(stage_result)
