@@ -104,7 +104,7 @@ class LogProcessor(DataProcessor):
         return super().format_output(result)
 
 
-def main():
+def main() -> None:
 
     print("=== CODE NEXUS - DATA PROCESSOR FOUNDATION ===\n")
     # ========================================================================
