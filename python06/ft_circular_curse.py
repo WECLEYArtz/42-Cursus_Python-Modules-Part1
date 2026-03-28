@@ -1,8 +1,10 @@
 from alchemy.grimoire import validate_ingredients, spellbook, record_spell
 
+
 def print_validation(ingredient: str):
     result: str = validate_ingredients(ingredient)
     print(F'validate_ingredients({ingredient}):', result)
+
 
 def print_record(spell_name: str, ingredient: str):
     result: str = spellbook(spell_name, ingredient)
