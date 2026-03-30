@@ -1,0 +1,4 @@
+*.txt
+*.json
+data
+data_generator.py
