@@ -6,7 +6,6 @@ from alchemy.transmutation import philosophers_stone, elixir_of_life
 print("\n=== Pathway Debate Mastery ===\n")
 
 print("\nTesting Absolute Imports (from basic.py):")
-
 print("lead_to_gold():", lead_to_gold())
 print("stone_to_gem():", stone_to_gem())
 
