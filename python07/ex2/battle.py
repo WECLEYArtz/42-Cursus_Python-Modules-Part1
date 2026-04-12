@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
-from ex0.creatures import Creature, CreatureFactory
+from ex0.creatures import Creature
+from ex1.capabilities import HealCapability, TransformCapability
 
 
 class BattleStrategy():
@@ -14,6 +15,8 @@ class NormalStrategy(BattleStrategy):
     '''
     suitable for any Creature, that will simply use the attack method
     during the tournament'''
+    def is_valid(pokemon1: Any, pokemon2: Any):
+        if not(  isinstance() and isinstance())
 
 class AggressiveStrategy(BattleStrategy):
     '''

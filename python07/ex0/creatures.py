@@ -14,15 +14,15 @@ class Creature(ABC):
         return f"{self.name} is a {self.type} type Creature"
 
 
+# === Creatures ===============================================================
+
+
 class Flameling(Creature):
     def __init__(self, name: str) -> None:
         super().__init__(name, "Fire")
 
     def attack(self) -> str:
         return (f"{self.name} uses Ember!")
-
-
-# === Creatures ===============================================================
 
 
 class Pyrodon(Creature):
