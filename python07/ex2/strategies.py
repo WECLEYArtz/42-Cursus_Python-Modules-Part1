@@ -17,19 +17,21 @@ class BattleStrategy(ABC):
     def act(self, pokemon: Creature) -> None:
         pass
 
+
 class NormalStrategy(BattleStrategy):
     '''
     suitable for any Creature, that will simply use the attack method
     during the tournament'''
     @staticmethod
-    def is_valid(pokemon: Any):
+    def is_valid(pokemon: Any) -> bool:
         return isinstance(pokemon, Creature)
 
     def act(self, pokemon: Creature) -> None:
         if self.is_valid(pokemon):
             print(pokemon.attack())
         else:
-            raise ValueError(F"{pokemon} is not suitable for any strategy")
+            raise ValueError(
+                    F"Invalid Creature '{pokemon.name}' for any strategy")
 
 
 class DefensiveStrategy(BattleStrategy):
@@ -38,15 +40,18 @@ class DefensiveStrategy(BattleStrategy):
     that will attack and then heal during the tournament
     '''
     @staticmethod
-    def is_valid(pokemon: HealerProtocol):
-        return isinstance(pokemon, (Creature, HealCapability))
+    def is_valid(pokemon: Any):
+        return (isinstance(pokemon, Creature) and
+                isinstance(pokemon, HealCapability))
 
     def act(self, pokemon: HealerProtocol) -> None:
         if self.is_valid(pokemon):
             print(pokemon.attack())
             print(pokemon.heal())
         else:
-            raise ValueError(F"{pokemon} is not suitable for any defensive strategy")
+            raise ValueError(
+                    F"Invalid Creature '{pokemon.name}' \
+                            for this defensive strategy")
 
 
 class AggressiveStrategy(BattleStrategy):
@@ -55,8 +60,9 @@ class AggressiveStrategy(BattleStrategy):
     that will transform, attack, and revert during the tournament
     '''
     @staticmethod
-    def is_valid(pokemon: TransformerProtocol):
-        return isinstance(pokemon, (Creature, TransformCapability))
+    def is_valid(pokemon: Any):
+        return (isinstance(pokemon, Creature) and
+                isinstance(pokemon, TransformCapability))
 
     def act(self, pokemon: TransformerProtocol) -> None:
         if self.is_valid(pokemon):
@@ -64,4 +70,6 @@ class AggressiveStrategy(BattleStrategy):
             print(pokemon.attack())
             print(pokemon.revert())
         else:
-            raise ValueError(F"{pokemon} is not suitable for any aggressive strategy")
+            raise ValueError(
+                    F"Invalid Creature '{pokemon.name}'\
+                            for this aggressive strategy")

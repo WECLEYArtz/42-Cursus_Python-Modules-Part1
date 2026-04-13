@@ -54,8 +54,8 @@ class TransformCapability(ABC):
 
 
 class Sproutling(Creature, HealCapability):
-    def __init__(self, name: str) -> None:
-        super().__init__(name, "Grass")
+    def __init__(self) -> None:
+        super().__init__("Grass")
 
     def attack(self) -> str:
         return (f"{self.name} uses Vine Whip!")
@@ -65,8 +65,8 @@ class Sproutling(Creature, HealCapability):
 
 
 class Bloomelle(Creature, HealCapability):
-    def __init__(self, name: str) -> None:
-        super().__init__(name, "Grass/Fairy")
+    def __init__(self) -> None:
+        super().__init__("Grass/Fairy")
 
     def attack(self) -> str:
         return (f"{self.name} uses Petal Dance!")
@@ -78,8 +78,8 @@ class Bloomelle(Creature, HealCapability):
 
 
 class Shiftling(Creature, TransformCapability):
-    def __init__(self, name: str) -> None:
-        super().__init__(name, "Normal")
+    def __init__(self) -> None:
+        super().__init__("Normal")
         self.attacks: list[str] = [
                 "attacks normally.",
                 "performs a boosted strike!",
@@ -90,7 +90,6 @@ class Shiftling(Creature, TransformCapability):
         self.attacks = self.attacks[1:] + self.attacks[:1]
         return (attack)
 
-
     def transform(self):
         return (f"{self.name} shifts into a sharper form!")
 
@@ -99,8 +98,8 @@ class Shiftling(Creature, TransformCapability):
 
 
 class Morphagon(Creature, TransformCapability):
-    def __init__(self, name: str) -> None:
-        super().__init__(name, "Normal/Dragon")
+    def __init__(self) -> None:
+        super().__init__("Normal/Dragon")
         self.attacks: list[str] = [
                 "attacks normally.",
                 "unleashes a devastating morph strike!",
@@ -122,19 +121,19 @@ class Morphagon(Creature, TransformCapability):
 
 class HealingCreatureFactory(CreatureFactory):
     @staticmethod
-    def create_base(name: str) -> Sproutling:
-        return Sproutling(name)
+    def create_base() -> Sproutling:
+        return Sproutling()
 
     @staticmethod
-    def create_evolved(name: str) -> Bloomelle:
-        return Bloomelle(name)
+    def create_evolved() -> Bloomelle:
+        return Bloomelle()
 
 
 class TransformCreatureFactory(CreatureFactory):
     @staticmethod
-    def create_base(name: str) -> Shiftling:
-        return Shiftling(name)
+    def create_base() -> Shiftling:
+        return Shiftling()
 
     @staticmethod
-    def create_evolved(name: str) -> Morphagon:
-        return Morphagon(name)
+    def create_evolved() -> Morphagon:
+        return Morphagon()

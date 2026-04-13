@@ -1,4 +1,7 @@
+# Simple Import
 from ex0 import FlameFactory, AquaFactory
+
+# Lint Direct Import
 from ex0.creatures import Creature
 
 
@@ -22,20 +25,24 @@ def testbattle(p1: Creature, p2: Creature) -> None:
     print(p2.attack())
 
 
-if __name__ == "__main__":
-    flamefactory = FlameFactory()
-    aquafactory = AquaFactory()
-
-    pokemon1 = FlameFactory.create_base("Flameling")
-    pokemon2 = FlameFactory.create_evolved("Pyrodon")
+def main():
+    pokemon1 = FlameFactory.create_base()
+    pokemon2 = FlameFactory.create_evolved()
     testfactory(pokemon1, pokemon2)
 
     print()
 
-    pokemon3 = AquaFactory.create_base("Aquabub")
-    pokemon4 = AquaFactory.create_evolved("Torragon")
+    pokemon3 = AquaFactory.create_base()
+    pokemon4 = AquaFactory.create_evolved()
     testfactory(pokemon3, pokemon4)
 
     print()
 
     testbattle(pokemon1, pokemon3)
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except Exception as e:
+        print(e)

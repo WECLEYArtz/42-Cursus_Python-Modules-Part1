@@ -1,7 +1,8 @@
+# Simple Import
 from ex1 import HealingCreatureFactory, TransformCreatureFactory
-from ex0.creatures import Creature
-from ex1.capabilities import (HealCapability, HealerProtocol,
-                              TransformCapability, TransformerProtocol)
+
+# Lint Direct Import
+from ex1.capabilities import (HealerProtocol, TransformerProtocol)
 
 
 def test_heal_factory(p1: HealerProtocol,
@@ -38,15 +39,19 @@ def test_transform_factory(p1: TransformerProtocol,
     print(p2.revert())
 
 
-if __name__ == "__main__":
-    healingcreaturefactory = HealingCreatureFactory()
-    transformcreaturefactory = TransformCreatureFactory()
-
-    pokemon1 = healingcreaturefactory.create_base("Sproutling")
-    pokemon2 = healingcreaturefactory.create_evolved("Bloomelle")
+def main():
+    pokemon1 = HealingCreatureFactory().create_base()
+    pokemon2 = HealingCreatureFactory().create_evolved()
     test_heal_factory(pokemon1, pokemon2)
     print()
 
-    pokemon3 = transformcreaturefactory.create_base("Shiftling")
-    pokemon4 = transformcreaturefactory.create_evolved("Morphagon")
+    pokemon3 = TransformCreatureFactory().create_base()
+    pokemon4 = TransformCreatureFactory().create_evolved()
     test_transform_factory(pokemon3, pokemon4)
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except Exception as e:
+        print(e)

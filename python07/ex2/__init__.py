@@ -1,2 +1,2 @@
-from .capabilities import HealingCreatureFactory, TransformCreatureFactory
-__all__ = ['HealingCreatureFactory', 'TransformCreatureFactory']
+from .strategies import NormalStrategy, DefensiveStrategy, AggressiveStrategy
+__all__ = ['NormalStrategy', 'DefensiveStrategy', 'AggressiveStrategy']
