@@ -1,10 +1,11 @@
 from ex1 import HealingCreatureFactory, TransformCreatureFactory
 from ex0.creatures import Creature
-from ex1.capabilities import HealCapability, TransformCapability
-from typing import Any
+from ex1.capabilities import (HealCapability, HealerProtocol,
+                              TransformCapability, TransformerProtocol)
 
 
-def test_heal_factory(p1: Any, p2: Any) -> None:
+def test_heal_factory(p1: HealerProtocol,
+                      p2: HealerProtocol) -> None:
     print("Testing Creature with healing capability")
 
     print(" base:")
@@ -17,7 +18,9 @@ def test_heal_factory(p1: Any, p2: Any) -> None:
     print(p2.attack())
     print(p2.heal())
 
-def test_transform_factory(p1: Any, p2: Any) -> None:
+
+def test_transform_factory(p1: TransformerProtocol,
+                           p2: TransformerProtocol) -> None:
     print("Testing Creature with transform capability")
 
     print(" base:")

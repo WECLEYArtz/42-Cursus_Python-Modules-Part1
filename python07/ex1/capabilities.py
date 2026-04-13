@@ -1,11 +1,44 @@
 from abc import ABC, abstractmethod
+from typing import Protocol
 from ex0.creatures import Creature, CreatureFactory
+
+
+class HealerProtocol(Protocol):
+    @staticmethod
+    def describe() -> str:
+        ...
+
+    @staticmethod
+    def attack() -> str:
+        ...
+
+    @staticmethod
+    def heal() -> str:
+        ...
 
 
 class HealCapability(ABC):
     @abstractmethod
     def heal(self) -> str:
-        '''heal pokemons i guess'''
+        '''heal self, or others'''
+
+
+class TransformerProtocol(Protocol):
+    @staticmethod
+    def describe() -> str:
+        ...
+
+    @staticmethod
+    def attack() -> str:
+        ...
+
+    @staticmethod
+    def transform() -> str:
+        ...
+
+    @staticmethod
+    def revert() -> str:
+        ...
 
 
 class TransformCapability(ABC):
