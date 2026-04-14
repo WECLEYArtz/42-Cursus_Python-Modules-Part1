@@ -2,43 +2,43 @@
 from ex0 import FlameFactory, AquaFactory
 
 # Lint Direct Import
-from ex0.creatures import Creature
+from ex0.creatures import CreatureFactory
 
 
-def testfactory(p1: Creature, p2: Creature) -> None:
-    print("Testing factory")
-    print(p1.describe())
-    print(p1.attack())
+def testfactory(factory: CreatureFactory) -> None:
+    base_pok = factory.create_base()
+    print(base_pok.describe())
+    print(base_pok.attack())
 
-    print(p2.describe())
-    print(p2.attack())
+    eval_pok = factory.create_evolved()
+    print(eval_pok.describe())
+    print(eval_pok.attack())
 
 
-def testbattle(p1: Creature, p2: Creature) -> None:
+def testbattle(factory1: CreatureFactory, factory2: CreatureFactory) -> None:
     print("Testing battle")
-    print(p1.describe())
+
+    pok1 = factory1.create_base()
+    pok2 = factory2.create_base()
+    print(pok1.describe())
     print(" vs")
-    print(p2.describe())
+    print(pok2.describe())
     print(" fight!")
 
-    print(p1.attack())
-    print(p2.attack())
+    print(pok1.attack())
+    print(pok2.attack())
 
 
 def main() -> None:
-    pokemon1 = FlameFactory.create_base()
-    pokemon2 = FlameFactory.create_evolved()
-    testfactory(pokemon1, pokemon2)
+    flamefactory = FlameFactory()
+    aquafactory = AquaFactory()
 
+    print("Testing factory")
+    testfactory(flamefactory)
     print()
-
-    pokemon3 = AquaFactory.create_base()
-    pokemon4 = AquaFactory.create_evolved()
-    testfactory(pokemon3, pokemon4)
-
+    testfactory(aquafactory)
     print()
-
-    testbattle(pokemon1, pokemon3)
+    testbattle(flamefactory, aquafactory)
 
 
 if __name__ == "__main__":

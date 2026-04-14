@@ -37,8 +37,8 @@ def main() -> None:
     # == Tournament 0 (basic) ================================================
     print("Tournament 0 (basic)")
     print("[ (Flameling+Normal), (Healing+Defensive) ]")
-    fighters = [(FlameFactory, NormalStrategy()),
-                (HealingCreatureFactory, DefensiveStrategy())]
+    fighters = [(FlameFactory(), NormalStrategy()),
+                (HealingCreatureFactory(), DefensiveStrategy())]
     try:
         battle(fighters)
     except ValueError as e:
@@ -48,8 +48,8 @@ def main() -> None:
     # == Tournament 1 (error) ================================================
     print("Tournament 1 (error)")
     print("[ (Flameling+Aggressive), (Healing+Defensive) ]")
-    fighters = [(FlameFactory, AggressiveStrategy()),
-                (HealingCreatureFactory, DefensiveStrategy())]
+    fighters = [(FlameFactory(), AggressiveStrategy()),
+                (HealingCreatureFactory(), DefensiveStrategy())]
     try:
         battle(fighters)
     except ValueError as e:
@@ -59,9 +59,9 @@ def main() -> None:
     # == Tournament 2 (multiple) =============================================
     print("Tournament 2 (multiple)")
     print("[ (Aquabub+Normal), (Healing+Defensive), (Transform+Aggressive) ]")
-    fighters = [(AquaFactory, NormalStrategy()),
-                (HealingCreatureFactory, DefensiveStrategy()),
-                (TransformCreatureFactory, AggressiveStrategy())]
+    fighters = [(AquaFactory(), NormalStrategy()),
+                (HealingCreatureFactory(), DefensiveStrategy()),
+                (TransformCreatureFactory(), AggressiveStrategy())]
     try:
         battle(fighters)
     except ValueError as e:

@@ -1,10 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Any
 from ex0.creatures import Creature
-from ex1.capabilities import (
-        HealCapability, TransformCapability,
-        HealerProtocol, TransformerProtocol
-        )
+from ex1.capabilities import HealCapability, TransformCapability
 
 
 class BattleStrategy(ABC):
@@ -44,7 +41,7 @@ class DefensiveStrategy(BattleStrategy):
         return (isinstance(pokemon, Creature) and
                 isinstance(pokemon, HealCapability))
 
-    def act(self, pokemon: HealerProtocol) -> None:
+    def act(self, pokemon: Any) -> None:
         if self.is_valid(pokemon):
             print(pokemon.attack())
             print(pokemon.heal())
@@ -64,7 +61,7 @@ class AggressiveStrategy(BattleStrategy):
         return (isinstance(pokemon, Creature) and
                 isinstance(pokemon, TransformCapability))
 
-    def act(self, pokemon: TransformerProtocol) -> None:
+    def act(self, pokemon: Any) -> None:
         if self.is_valid(pokemon):
             print(pokemon.transform())
             print(pokemon.attack())
