@@ -50,8 +50,8 @@ class DefensiveStrategy(BattleStrategy):
             print(pokemon.heal())
         else:
             raise ValueError(
-                    F"Invalid Creature '{pokemon.name}' \
-                            for this defensive strategy")
+                    f"Invalid Creature '{pokemon.name}'" +
+                    " for this defensive strategy")
 
 
 class AggressiveStrategy(BattleStrategy):
@@ -71,5 +71,5 @@ class AggressiveStrategy(BattleStrategy):
             print(pokemon.revert())
         else:
             raise ValueError(
-                    F"Invalid Creature '{pokemon.name}'\
-                            for this aggressive strategy")
+                    f"Invalid Creature '{pokemon.name}'" +
+                    " for this aggressive strategy")

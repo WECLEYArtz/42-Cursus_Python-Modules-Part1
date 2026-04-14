@@ -7,7 +7,7 @@ from ex2 import (NormalStrategy, DefensiveStrategy, AggressiveStrategy)
 
 # Lint Direct Import
 from ex0.creatures import CreatureFactory
-from ex2.battle import BattleStrategy
+from ex2.strategies import BattleStrategy
 
 
 def battle(oponents: list[tuple[CreatureFactory, BattleStrategy]]):
