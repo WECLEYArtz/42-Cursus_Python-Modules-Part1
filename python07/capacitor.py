@@ -39,7 +39,7 @@ def test_transform_factory(p1: TransformerProtocol,
     print(p2.revert())
 
 
-def main():
+def main() -> None:
     pokemon1 = HealingCreatureFactory().create_base()
     pokemon2 = HealingCreatureFactory().create_evolved()
     test_heal_factory(pokemon1, pokemon2)

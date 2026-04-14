@@ -40,7 +40,7 @@ class DefensiveStrategy(BattleStrategy):
     that will attack and then heal during the tournament
     '''
     @staticmethod
-    def is_valid(pokemon: Any):
+    def is_valid(pokemon: Any) -> bool:
         return (isinstance(pokemon, Creature) and
                 isinstance(pokemon, HealCapability))
 
@@ -60,7 +60,7 @@ class AggressiveStrategy(BattleStrategy):
     that will transform, attack, and revert during the tournament
     '''
     @staticmethod
-    def is_valid(pokemon: Any):
+    def is_valid(pokemon: Any) -> bool:
         return (isinstance(pokemon, Creature) and
                 isinstance(pokemon, TransformCapability))
 

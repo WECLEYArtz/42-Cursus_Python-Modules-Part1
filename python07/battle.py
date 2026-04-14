@@ -25,7 +25,7 @@ def testbattle(p1: Creature, p2: Creature) -> None:
     print(p2.attack())
 
 
-def main():
+def main() -> None:
     pokemon1 = FlameFactory.create_base()
     pokemon2 = FlameFactory.create_evolved()
     testfactory(pokemon1, pokemon2)

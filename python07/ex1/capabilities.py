@@ -90,10 +90,10 @@ class Shiftling(Creature, TransformCapability):
         self.attacks = self.attacks[1:] + self.attacks[:1]
         return (attack)
 
-    def transform(self):
+    def transform(self) -> str:
         return (f"{self.name} shifts into a sharper form!")
 
-    def revert(self):
+    def revert(self) -> str:
         return (f"{self.name} returns to normal.")
 
 
@@ -110,10 +110,10 @@ class Morphagon(Creature, TransformCapability):
         self.attacks = self.attacks[1:] + self.attacks[:1]
         return (attack)
 
-    def transform(self):
+    def transform(self) -> str:
         return (f"{self.name} morphs into a dragonic battle form!")
 
-    def revert(self):
+    def revert(self) -> str:
         return (f"{self.name} stabilizes its form.")
 
 

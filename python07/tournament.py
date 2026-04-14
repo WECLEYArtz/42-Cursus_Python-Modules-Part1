@@ -33,7 +33,7 @@ def battle(oponents: list[tuple[CreatureFactory, BattleStrategy]]):
         pok2_strat.act(pok2_card)
 
 
-if __name__ == "__main__":
+def main() -> None:
     # == Tournament 0 (basic) ================================================
     print("Tournament 0 (basic)")
     print("[ (Flameling+Normal), (Healing+Defensive) ]")
@@ -67,3 +67,10 @@ if __name__ == "__main__":
     except ValueError as e:
         print("Battle error, aborting tournament: ", e)
     print()
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except Exception as e:
+        print(e)
