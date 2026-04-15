@@ -10,7 +10,8 @@ from ex0.creatures import CreatureFactory
 from ex2.strategies import BattleStrategy
 
 
-def battle(oponents: list[tuple[CreatureFactory, BattleStrategy]]):
+def battle(oponents:
+           list[tuple[CreatureFactory, BattleStrategy]]) -> None:
     print("*** Tournament ***")
     print(len(oponents), "opponents involved")
 
@@ -24,9 +25,9 @@ def battle(oponents: list[tuple[CreatureFactory, BattleStrategy]]):
         pok2_card, pok2_strat = oponent2[0].create_base(), oponent2[1]
 
         print("\n* Battle *")
-        print(pok1_card.name, pok1_card.describe())
-        print(" vs")
-        print(pok2_card.name, pok2_card.describe())
+        print(pok1_card.describe())
+        print(" vs.")
+        print(pok2_card.describe())
         print(" now fight!")
 
         pok1_strat.act(pok1_card)
@@ -34,6 +35,7 @@ def battle(oponents: list[tuple[CreatureFactory, BattleStrategy]]):
 
 
 def main() -> None:
+    fighters: list[tuple[CreatureFactory, BattleStrategy]]
     # == Tournament 0 (basic) ================================================
     print("Tournament 0 (basic)")
     print("[ (Flameling+Normal), (Healing+Defensive) ]")
@@ -53,7 +55,7 @@ def main() -> None:
     try:
         battle(fighters)
     except ValueError as e:
-        print("Battle error, aborting tournament: ", e)
+        print("Battle error, aborting tournament:", e)
     print()
 
     # == Tournament 2 (multiple) =============================================
@@ -65,7 +67,7 @@ def main() -> None:
     try:
         battle(fighters)
     except ValueError as e:
-        print("Battle error, aborting tournament: ", e)
+        print("Battle error, aborting tournament:", e)
     print()
 
 

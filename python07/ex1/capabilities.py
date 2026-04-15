@@ -47,40 +47,38 @@ class Bloomelle(Creature, HealCapability):
 class Shiftling(Creature, TransformCapability):
     def __init__(self) -> None:
         super().__init__("Normal")
-        self.attacks: list[str] = [
-                "attacks normally.",
-                "performs a boosted strike!",
-                ]
+        self.attack_normal: str = "attacks normally."
+        self.attack_special: str = "performs a boosted strike!"
+        self.attack_current: str = self.attack_normal
 
     def attack(self) -> str:
-        attack = f"{self.name} {self.attacks[0]}"
-        self.attacks = self.attacks[1:] + self.attacks[:1]
-        return (attack)
+        return (f"{self.name} {self.attack_current}")
 
     def transform(self) -> str:
+        self.attack_current = self.attack_special
         return (f"{self.name} shifts into a sharper form!")
 
     def revert(self) -> str:
+        self.attack_current = self.attack_normal
         return (f"{self.name} returns to normal.")
 
 
 class Morphagon(Creature, TransformCapability):
     def __init__(self) -> None:
         super().__init__("Normal/Dragon")
-        self.attacks: list[str] = [
-                "attacks normally.",
-                "unleashes a devastating morph strike!",
-                ]
+        self.attack_normal: str = "attacks normally."
+        self.attack_special: str = "unleashes a devastating morph strike!"
+        self.attack_current: str = self.attack_normal
 
     def attack(self) -> str:
-        attack = f"{self.name} {self.attacks[0]}"
-        self.attacks = self.attacks[1:] + self.attacks[:1]
-        return (attack)
+        return (f"{self.name} {self.attack_current}")
 
     def transform(self) -> str:
+        self.attack_current = self.attack_special
         return (f"{self.name} morphs into a dragonic battle form!")
 
     def revert(self) -> str:
+        self.attack_current = self.attack_normal
         return (f"{self.name} stabilizes its form.")
 
 

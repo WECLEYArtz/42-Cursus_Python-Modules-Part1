@@ -6,6 +6,8 @@ from ex0.creatures import CreatureFactory
 
 
 def testfactory(factory: CreatureFactory) -> None:
+    print("Testing factory")
+
     base_pok = factory.create_base()
     print(base_pok.describe())
     print(base_pok.attack())
@@ -21,7 +23,7 @@ def testbattle(factory1: CreatureFactory, factory2: CreatureFactory) -> None:
     pok1 = factory1.create_base()
     pok2 = factory2.create_base()
     print(pok1.describe())
-    print(" vs")
+    print(" vs.")
     print(pok2.describe())
     print(" fight!")
 
@@ -33,7 +35,6 @@ def main() -> None:
     flamefactory = FlameFactory()
     aquafactory = AquaFactory()
 
-    print("Testing factory")
     testfactory(flamefactory)
     print()
     testfactory(aquafactory)
