@@ -1,2 +1,3 @@
-requirements.txt
-
+pandas>=1.0
+numpy>=1.0
+motplotlib>=1.0

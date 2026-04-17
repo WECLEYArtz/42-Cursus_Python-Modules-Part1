@@ -1,0 +1,17 @@
+[project]
+name = "Matrix-Analysis"
+version = "0.1.0"
+description = "data analysis"
+requires-python = ">=3.13"
+
+[tool.poetry]
+package-mode = false
+
+[tool.poetry.group.dev.dependencies]
+numpy = "^2.4.4"
+matplotlib = "^3.10.8"
+pandas = "^3.0.2"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

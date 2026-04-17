@@ -39,10 +39,11 @@ def main() -> None:
 
     print("Processing 1000 data points...")
     data = np.random.randint(100, size=(1000))
+    dataframe = pd.DataFrame(data)
 
     print("Generating visualization...")
-    print(pd.DataFrame(data.T))
-    plt.plot(data)
+    print()
+    plt.plot(dataframe)
     plt.savefig('matrix_analysis.png')
     print("Results saved to: matrix_analysis.png")
 
