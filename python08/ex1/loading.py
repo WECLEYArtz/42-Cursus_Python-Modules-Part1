@@ -23,7 +23,7 @@ def check_dep() -> None:
         print("\nMissing dependencie(s):", *missing, "\nUsage:")
         print("'pip install -r requirements.txt && python3 loading.py'")
         print("or")
-        print("'poetry install && peoetry install bb.txt'")
+        print("'poetry install &&  poetry run python loading.py'")
         exit(1)
 
 

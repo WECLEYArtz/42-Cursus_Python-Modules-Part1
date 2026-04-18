@@ -3,9 +3,9 @@ import site
 import sys
 
 success = '''
-SUCCESS: You're in an isolated environment!")
-Safe to install packages without affecting")
-the global system.")
+SUCCESS: You're in an isolated environment!
+Safe to install packages without affecting
+the global system.
 '''
 
 warn = '''
