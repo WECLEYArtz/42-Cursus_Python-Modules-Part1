@@ -17,16 +17,18 @@ conf_names: dict[str, str | None] = {
 def load_env_vars() -> None:
     try:
         from dotenv import load_dotenv
-        val = load_dotenv(override=override)
-        if val:
-            print("Configuration loaded:")
+        if (not load_dotenv(override=override)):
+            print("No configuration loaded, exiting...")
+            exit(1)
     except ImportError as e:
         print(e)
+        exit(1)
 
 
 def show_env_vars() -> None:
     from dotenv import dotenv_values
 
+    print("Configuration loaded:")
     for config in conf_names:
         val = os.getenv(config)
         if not val:
@@ -42,23 +44,31 @@ def show_env_vars() -> None:
 def check_security() -> None:
     tmp1 = {*globals(), *locals()}
     tmp2 = tmp1.difference({n for n in conf_names})
+    complete = True
+
     if (len(tmp1) != len(tmp2)):
         warns['hardcode'] = True
 
     if warns['hardcode']:
         print("[KO] Hardcoded detected")
+        complete = False
     else:
         print("[OK] No hardcoded secrets detected")
 
     if warns['badconfig']:
         print("[KO] .env file missing keys or has extra ones")
+        complete = False
     else:
         print("[OK] .env file properly configured")
 
     if not override:
         print("[KO] Production overrides disabled")
+        complete = False
     else:
         print("[OK] Production overrides available")
+
+    if not complete:
+        exit(1)
 
 
 def main() -> None:
