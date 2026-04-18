@@ -71,19 +71,8 @@ def main() -> None:
     print("\nThe Oracle sees all configurations.")
 
 
-main()
-
-
-# Configuration loaded:
-# Mode: development
-# Database: Connected to local instance
-# API Access: Authenticated
-# Log Level: DEBUG
-# Zion Network: Online
-# Environment security check:
-
-# [OK] No hardcoded secrets detected
-# [OK] .env file properly configured
-# [OK] Production overrides available
-
-# The Oracle sees all configurations.
+if __name__ == "__main__":
+    try:
+        main()
+    except Exception as e:
+        print(e)
