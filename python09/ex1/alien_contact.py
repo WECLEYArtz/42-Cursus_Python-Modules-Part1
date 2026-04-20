@@ -2,6 +2,7 @@ from pydantic import BaseModel, Field, ValidationError, model_validator
 from datetime import datetime
 from typing_extensions import Self
 from enum import Enum
+import json
 
 
 class ContactType(Enum):
@@ -25,14 +26,16 @@ class AlienContact(BaseModel):
     @model_validator(mode='after')
     def validator(self) -> Self:
         if not self.contact_id[0:2] == 'AC':
-            raise ValueError()
+            raise ValueError("Contact ID must start with 'AC'")
         if self.contact_type == ContactType.PHYSICAL and not self.is_verified:
-            raise ValueError()
+            raise ValueError("Physical contact reports must be verified")
         if (self.contact_type == ContactType.TELEPATHIC
                 and self.witness_count < 3):
-            raise ValueError()
+            raise ValueError(
+                    "Telepathic contact requires at least 3 witnesses")
         if self.signal_strength > 7.0 and not self.message_received:
-            raise ValueError()
+            raise ValueError(
+                    "Strong signals (> 7.0) should include received messages")
         return self
 
 
@@ -48,43 +51,30 @@ def show(aliencontact: AlienContact) -> None:
 
 
 def main() -> None:
+    good_test = "generated_data/alien_contacts.json"
+    bad_test = "generated_data/invalid_contacts.json"
+
     print("Alien Contact Log Validation")
     print("======================================")
-    aliencontact = AlienContact(
-            contact_id="AC_2024_001",
-            timestamp=datetime.now(),
-            location="Area 51, Nevada",
-            contact_type=ContactType.RADIO,
-            signal_strength=8.5,
-            duration_minutes=45,
-            witness_count=5,
-            message_received="Greetings from Zeta Reticuli",
-            is_verified=True
-            )
-    show(aliencontact)
+
+    with open(good_test) as f:
+        aliencontact = json.load(f)
+        show(AlienContact(**aliencontact[0]))
 
     print("\n======================================")
     print("Expected validation error:")
 
-    try:
-        _ = AlienContact(
-                contact_id="AC_2024_001",
-                timestamp=datetime.now(),
-                location="Area 51, Nevada",
-                contact_type=ContactType.RADIO,
-                signal_strength=8.5,
-                duration_minutes=45,
-                witness_count=1,
-                message_received="Greetings from Zeta Reticuli",
-                is_verified=True
-                )
-    except ValidationError as e:
-        print(e.errors()[0]['msg'])
-    print("Telepathic contact requires at least 3 witnesses")
+    with open(bad_test) as f:
+        aliencontact = json.load(f)
+        show(AlienContact(**aliencontact[1]))
 
 
 if __name__ == "__main__":
     try:
         main()
+    except ValidationError as e:
+        print(e.errors()[0]["ctx"]["error"])
+    except PermissionError:
+        print("stop missing with the file bro")
     except Exception as e:
         print(e)

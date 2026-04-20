@@ -1,5 +1,6 @@
 from pydantic import BaseModel, Field, ValidationError
 from datetime import datetime
+import json
 
 
 class SpaceStation(BaseModel):
@@ -11,36 +12,6 @@ class SpaceStation(BaseModel):
     last_maintenance: datetime
     is_operational: bool = True
     notes: str | None = Field(max_length=200)
-
-
-def main() -> None:
-    space_station = SpaceStation(
-        station_id="12345678",
-        name="smiya",
-        crew_size=2,
-        power_level=50.0,
-        oxygen_level=50.0,
-        last_maintenance=datetime.now(),
-        is_operational=True,
-        notes="isthisamongus"
-            )
-    show(space_station)
-
-    print("\n========================================")
-    print("Expected validation error:")
-    try:
-        _ = SpaceStation(
-                station_id="12345678",
-                name="smiya",
-                crew_size=21,
-                power_level=50.0,
-                oxygen_level=50.0,
-                last_maintenance=datetime.now(),
-                is_operational=True,
-                notes="isthisamongus"
-                )
-    except ValidationError as e:
-        print(e.errors()[0]['msg'])
 
 
 def show(sp_st: SpaceStation) -> None:
@@ -55,8 +26,27 @@ def show(sp_st: SpaceStation) -> None:
     print("Status:", "" if sp_st.is_operational else "Not", "Operational")
 
 
+def main() -> None:
+    good_test = "generated_data/space_stations.json"
+    bad_test = "generated_data/invalid_stations.json"
+
+    with open(good_test) as f:
+        space_station = json.load(f)
+        show(SpaceStation(**space_station[0]))
+
+    print("\n========================================")
+    print("Expected validation error:")
+    with open(bad_test) as f:
+        space_station = json.load(f)
+        show(SpaceStation(**space_station[0]))
+
+
 if __name__ == "__main__":
     try:
         main()
+    except ValidationError as e:
+        print(e.errors()[0]['msg'])
+    except PermissionError:
+        print("stop missing with the file bro")
     except Exception as e:
         print(e)
