@@ -73,9 +73,9 @@ if __name__ == "__main__":
     try:
         main()
     except ValidationError as e:
-        value_error_msg = e.errors()[0].get("ctx").get("error")
-        if value_error_msg:
-            print(value_error_msg)
+        value_error_msg = e.errors()[0].get("ctx")
+        if value_error_msg and value_error_msg.get("error"):
+            print(value_error_msg.get("error"))
         else:
             print(e.errors()[0]['msg'])
     except PermissionError:
