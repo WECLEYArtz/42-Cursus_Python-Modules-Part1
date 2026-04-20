@@ -32,6 +32,7 @@ class SpaceMission(BaseModel):
     crew: list[CrewMember] = Field(min_length=1, max_length=12)
     mission_status: str = "planned"
     budget_millions: float = Field(ge=1.0, le=10000.0)
+    specialization: str | None = None
 
     @model_validator(mode='after')
     def validator(self) -> Self:
@@ -59,19 +60,32 @@ class SpaceMission(BaseModel):
         return (int(experinced / crew_count * 100))
 
 
-def main() -> None:
-    from pprint import pprint
-    test = "generated_data/space_missions.json"
+def show(spacemission: SpaceMission) -> None:
+    print("Valid mission created:")
 
+    print("Mission:", spacemission.mission_name)
+    print("ID:", spacemission.mission_id)
+    print("Destination:", spacemission.destination)
+    print(f"Duration: {spacemission.duration_days} days")
+    print(f"Budget: ${spacemission.budget_millions}M")
+    print("Crew size:", {len(spacemission.crew)})
+    print("Crew members:",)
+    for crew in spacemission.crew:
+        print(f"- {crew.name} ({crew.rank.value}) - {crew.specialization}")
+
+
+def main() -> None:
+    test = "generated_data/space_missions.json"
     with open(test) as f:
-        print("Alien Contact Log Validation")
+        print("Space Mission Crew Validation")
         print("======================================")
+
         mission = json.load(f)
-        pprint((SpaceMission(**mission[0]).model_dump()))
+        show(SpaceMission(**mission[0]))
 
         print("\n======================================")
         print("Expected validation error:")
-        pprint((SpaceMission(**mission[4]).model_dump()))
+        show(SpaceMission(**mission[4]))
 
 
 if __name__ == "__main__":
