@@ -1,6 +1,5 @@
 from pydantic import BaseModel, Field, ValidationError
 from datetime import datetime
-from typing import Optional
 
 
 class SpaceStation(BaseModel):
@@ -11,29 +10,35 @@ class SpaceStation(BaseModel):
     oxygen_level: float = Field(ge=0.0, le=100.0)
     last_maintenance: datetime
     is_operational: bool = True
-    notes: Optional[str | None] = Field(max_length=200)
+    notes: str | None = Field(max_length=200)
 
 
 def main() -> None:
-    data: dict[str, str] = {
-            "station_id": "12345678",
-            "name": "smiya",
-            "crew_size": '2',
-            "power_level": '50.0',
-            "oxygen_level": '50.0',
-            "last_maintenance": str(datetime.now()),
-            "is_operational": 't',
-            "notes": "is this amongus"
-
-            }
-    space_station = SpaceStation(**data)
+    space_station = SpaceStation(
+        station_id="12345678",
+        name="smiya",
+        crew_size=2,
+        power_level=50.0,
+        oxygen_level=50.0,
+        last_maintenance=datetime.now(),
+        is_operational=True,
+        notes="isthisamongus"
+            )
     show(space_station)
 
-    print("========================================")
+    print("\n========================================")
     print("Expected validation error:")
     try:
-        data['crew_size'] = '21'
-        _ = SpaceStation(**data)
+        _ = SpaceStation(
+                station_id="12345678",
+                name="smiya",
+                crew_size=21,
+                power_level=50.0,
+                oxygen_level=50.0,
+                last_maintenance=datetime.now(),
+                is_operational=True,
+                notes="isthisamongus"
+                )
     except ValidationError as e:
         print(e.errors()[0]['msg'])
 
