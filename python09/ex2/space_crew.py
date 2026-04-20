@@ -27,12 +27,12 @@ class SpaceMission(BaseModel):
     mission_id: str = Field(min_length=5, max_length=15)
     mission_name: str = Field(min_length=3, max_length=100)
     destination: str = Field(min_length=3, max_length=50)
-    launch_date: datetime
+    launch_date: datetime = Field(default_factory=datetime.now)
     duration_days: int = Field(ge=1, le=3650)
     crew: list[CrewMember] = Field(min_length=1, max_length=12)
-    mission_status: str = "planned"
+    mission_status: str = Field(default="planned")
     budget_millions: float = Field(ge=1.0, le=10000.0)
-    specialization: str | None = None
+    specialization: str | None = Field(default=None)
 
     @model_validator(mode='after')
     def validator(self) -> Self:
@@ -68,7 +68,7 @@ def show(spacemission: SpaceMission) -> None:
     print("Destination:", spacemission.destination)
     print(f"Duration: {spacemission.duration_days} days")
     print(f"Budget: ${spacemission.budget_millions}M")
-    print("Crew size:", {len(spacemission.crew)})
+    print("Crew size:", len(spacemission.crew))
     print("Crew members:",)
     for crew in spacemission.crew:
         print(f"- {crew.name} ({crew.rank.value}) - {crew.specialization}")
@@ -92,7 +92,11 @@ if __name__ == "__main__":
     try:
         main()
     except ValidationError as e:
-        print(e.errors()[0]["ctx"]["error"])
+        value_error_msg = e.errors()[0].get("ctx").get("error")
+        if value_error_msg:
+            print(value_error_msg)
+        else:
+            print(e.errors()[0]['msg'])
     except PermissionError:
         print("stop missing with the file bro")
     except Exception as e:

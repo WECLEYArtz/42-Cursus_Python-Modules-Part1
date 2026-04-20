@@ -14,14 +14,14 @@ class ContactType(Enum):
 
 class AlienContact(BaseModel):
     contact_id: str = Field(min_length=5, max_length=15)
-    timestamp: datetime
+    timestamp: datetime = Field(default_factory=datetime.now)
     location: str = Field(min_length=3, max_length=100)
-    contact_type: ContactType
+    contact_type: ContactType = Field(default_factory=ContactType)
     signal_strength: float = Field(ge=0.0, le=10.0)
     duration_minutes: int = Field(ge=1, le=1440)
     witness_count: int = Field(ge=1, le=100)
     message_received: str | None = Field(max_length=500)
-    is_verified: bool = False
+    is_verified: bool = Field(default=False)
 
     @model_validator(mode='after')
     def validator(self) -> Self:
@@ -51,12 +51,11 @@ def show(aliencontact: AlienContact) -> None:
 
 
 def main() -> None:
-    good_test = "generated_data/alien_contacts.json"
-    bad_test = "generated_data/invalid_contacts.json"
 
     print("Alien Contact Log Validation")
     print("======================================")
 
+    good_test = "generated_data/alien_contacts.json"
     with open(good_test) as f:
         aliencontact = json.load(f)
         show(AlienContact(**aliencontact[0]))
@@ -64,16 +63,21 @@ def main() -> None:
     print("\n======================================")
     print("Expected validation error:")
 
+    bad_test = "generated_data/invalid_contacts.json"
     with open(bad_test) as f:
         aliencontact = json.load(f)
-        show(AlienContact(**aliencontact[1]))
+        show(AlienContact(**aliencontact[0]))
 
 
 if __name__ == "__main__":
     try:
         main()
     except ValidationError as e:
-        print(e.errors()[0]["ctx"]["error"])
+        value_error_msg = e.errors()[0].get("ctx").get("error")
+        if value_error_msg:
+            print(value_error_msg)
+        else:
+            print(e.errors()[0]['msg'])
     except PermissionError:
         print("stop missing with the file bro")
     except Exception as e:

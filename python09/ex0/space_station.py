@@ -9,14 +9,12 @@ class SpaceStation(BaseModel):
     crew_size: int = Field(ge=1, le=20)
     power_level: float = Field(ge=0.0, le=100.0)
     oxygen_level: float = Field(ge=0.0, le=100.0)
-    last_maintenance: datetime
-    is_operational: bool = True
+    last_maintenance: datetime = Field(default_factory=datetime.now)
+    is_operational: bool = Field(default=True)
     notes: str | None = Field(max_length=200)
 
 
 def show(sp_st: SpaceStation) -> None:
-    print("Space Station Data Validation")
-    print("========================================")
     print("Valid station created:")
     print("ID:", sp_st.station_id)
     print("Name:", sp_st.name)
@@ -27,15 +25,18 @@ def show(sp_st: SpaceStation) -> None:
 
 
 def main() -> None:
-    good_test = "generated_data/space_stations.json"
-    bad_test = "generated_data/invalid_stations.json"
+    print("Space Station Data Validation")
+    print("========================================")
 
+    good_test = "generated_data/space_stations.json"
     with open(good_test) as f:
         space_station = json.load(f)
         show(SpaceStation(**space_station[0]))
 
     print("\n========================================")
     print("Expected validation error:")
+
+    bad_test = "generated_data/invalid_stations.json"
     with open(bad_test) as f:
         space_station = json.load(f)
         show(SpaceStation(**space_station[0]))
