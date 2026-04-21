@@ -41,7 +41,8 @@ class SpaceMission(BaseModel):
             if crewmate.rank in [Rank.CAPTAIN, Rank.COMMANDER]:
                 has_leader = True
         if not has_leader:
-            raise ValueError("Must have at least one Commander or Captain")
+            raise ValueError(
+                    "Mission must have at least one Commander or Captain")
         if self.duration_days > 365 and self.get_experience_percentage() < 50:
             raise ValueError(
                     "Long missions (> 365 days)" +

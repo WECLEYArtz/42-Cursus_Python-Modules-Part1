@@ -55,11 +55,11 @@ def main() -> None:
     show(AlienContact(
         contact_id='AC_2024_001',
         timestamp=datetime.now(),
-        location='Atacama Desert, Chile',
-        contact_type=ContactType.VISUAL,
-        signal_strength=9.6,
-        duration_minutes=99,
-        witness_count=11,
+        location='Area 51, Nevada',
+        contact_type=ContactType.RADIO,
+        signal_strength=8.5,
+        duration_minutes=45,
+        witness_count=5,
         message_received='Greetings from Zeta Reticuli',
         is_verified=False))
 
