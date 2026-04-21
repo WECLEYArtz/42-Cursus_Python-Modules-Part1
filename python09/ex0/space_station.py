@@ -48,15 +48,15 @@ def main() -> None:
                 is_operational=True,
                 notes="isthisamongus")
     except ValidationError as e:
-        print(e.errors()[0]['msg'])
+        for e in e.errors():
+            print(e['msg'])
 
 
 if __name__ == "__main__":
     try:
         main()
     except ValidationError as e:
-        print(e.errors()[0]['msg'])
-    except PermissionError:
-        print("stop missing with the file bro")
+        for e in e.errors():
+            print(e['msg'])
     except Exception as e:
         print(e)

@@ -1,8 +1,6 @@
 from pydantic import BaseModel, Field, ValidationError, model_validator
 from datetime import datetime
-from typing_extensions import Self
 from enum import Enum
-import json
 
 
 class Rank(Enum):
@@ -35,7 +33,7 @@ class SpaceMission(BaseModel):
     specialization: str | None = Field(default=None)
 
     @model_validator(mode='after')
-    def validator(self) -> Self:
+    def validator(self) -> 'SpaceMission':
         if (self.mission_id[0] != "M"):
             raise ValueError("Mission ID must start with 'M'")
         has_leader: bool = False
@@ -75,32 +73,69 @@ def show(spacemission: SpaceMission) -> None:
 
 
 def main() -> None:
-    test = "generated_data/space_missions.json"
-    with open(test) as f:
-        print("Space Mission Crew Validation")
-        print("======================================")
+    print("Space Mission Crew Validation")
+    print("======================================")
 
-        mission = json.load(f)
-        show(SpaceMission(**mission[0]))
+    show(SpaceMission(
+        mission_id='M2024_TITAN',
+        mission_name='Solar Observatory Research Mission',
+        destination='Solar Observatory',
+        launch_date=datetime.now(),
+        duration_days=451,
+        crew=[
+            CrewMember(
+                member_id="001",
+                name="Sarah Connor",
+                rank=Rank.COMMANDER,
+                age=42,
+                specialization="Mission Command",
+                years_experience=15,
+                ),
+            CrewMember(
+                member_id="002",
+                name="John Smith",
+                rank=Rank.LIEUTENANT,
+                age=35,
+                specialization="Navigation",
+                years_experience=8,
+                ),
+            CrewMember(
+                member_id="003",
+                name="Alice Johnson",
+                rank=Rank.OFFICER,
+                age=28,
+                specialization="Engineering",
+                years_experience=5,
+                )],
+        mission_status='planned',
+        budget_millions=2208.1))
 
-        print("\n======================================")
-        print("Expected validation error:")
-        show(SpaceMission(**mission[4]))
+    print("\n======================================")
+    print("Expected validation error:")
+    show(SpaceMission(
+        mission_id='M2024_TITAN',
+        mission_name='Solar Observatory Research Mission',
+        destination='Solar Observatory',
+        launch_date=datetime.now(),
+        duration_days=451,
+        crew=[
+            CrewMember(
+                member_id="CM001",
+                name="Sarah Connor",
+                rank=Rank.OFFICER,
+                age=42,
+                specialization="Mission Command",
+                years_experience=15)
+            ],
+        mission_status='planned',
+        budget_millions=2208.1))
 
 
 if __name__ == "__main__":
     try:
         main()
     except ValidationError as e:
-        value_error_msg = e.errors()[0].get("ctx")
-        print(value_error_msg)
-        if value_error_msg and value_error_msg.get("error"):
-            print(value_error_msg.get("error"))
-        else:
-            print(e.errors()[0]['msg'])
-    except FileNotFoundError:
-        print("Make sure the 42 generated Jsons exist, and run from the root")
-    except PermissionError:
-        print("stop missing with the file bro")
+        for e in e.errors():
+            print(e['msg'])
     except Exception as e:
         print(e)

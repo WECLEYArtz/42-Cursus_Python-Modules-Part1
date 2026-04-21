@@ -1,8 +1,6 @@
 from pydantic import BaseModel, Field, ValidationError, model_validator
 from datetime import datetime
-from typing_extensions import Self
 from enum import Enum
-import json
 
 
 class ContactType(Enum):
@@ -24,7 +22,7 @@ class AlienContact(BaseModel):
     is_verified: bool = Field(default=False)
 
     @model_validator(mode='after')
-    def validator(self) -> Self:
+    def validator(self) -> 'AlienContact':
         if not self.contact_id[0:2] == 'AC':
             raise ValueError("Contact ID must start with 'AC'")
         if self.contact_type == ContactType.PHYSICAL and not self.is_verified:
@@ -51,36 +49,40 @@ def show(aliencontact: AlienContact) -> None:
 
 
 def main() -> None:
-
     print("Alien Contact Log Validation")
     print("======================================")
 
-    good_test = "generated_data/alien_contacts.json"
-    with open(good_test) as f:
-        aliencontact = json.load(f)
-        show(AlienContact(**aliencontact[0]))
+    show(AlienContact(
+        contact_id='AC_2024_001',
+        timestamp=datetime.now(),
+        location='Atacama Desert, Chile',
+        contact_type=ContactType.VISUAL,
+        signal_strength=9.6,
+        duration_minutes=99,
+        witness_count=11,
+        message_received='Greetings from Zeta Reticuli',
+        is_verified=False))
 
     print("\n======================================")
     print("Expected validation error:")
 
-    bad_test = "generated_data/invalid_contacts.json"
-    with open(bad_test) as f:
-        aliencontact = json.load(f)
-        show(AlienContact(**aliencontact[0]))
+    _ = AlienContact(
+        contact_id='AC_2024_001',
+        timestamp=datetime.now(),
+        location='Atacama Desert, Chile',
+        contact_type=ContactType.TELEPATHIC,
+        signal_strength=9.6,
+        duration_minutes=99,
+        witness_count=1,
+        message_received='Greetings from Zeta Reticuli',
+        is_verified=False)
 
 
 if __name__ == "__main__":
     try:
         main()
     except ValidationError as e:
-        value_error_msg = e.errors()[0].get("ctx")
-        if value_error_msg and value_error_msg.get("error"):
-            print(value_error_msg.get("error"))
-        else:
-            print(e.errors()[0]['msg'])
-    except FileNotFoundError:
-        print("Make sure the 42 generated Jsons exist, and run from the root")
-    except PermissionError:
-        print("stop missing with the file bro")
+        for e in e.errors():
+            print(e['msg'])
     except Exception as e:
         print(e)
