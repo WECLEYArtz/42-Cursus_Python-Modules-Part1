@@ -78,6 +78,8 @@ if __name__ == "__main__":
             print(value_error_msg.get("error"))
         else:
             print(e.errors()[0]['msg'])
+    except FileNotFoundError:
+        print("Make sure the 42 generated Jsons exist, and run from the root")
     except PermissionError:
         print("stop missing with the file bro")
     except Exception as e:

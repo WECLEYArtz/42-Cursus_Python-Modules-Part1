@@ -1,6 +1,5 @@
 from pydantic import BaseModel, Field, ValidationError
 from datetime import datetime
-import json
 
 
 class SpaceStation(BaseModel):
@@ -25,21 +24,31 @@ def show(sp_st: SpaceStation) -> None:
 
 
 def main() -> None:
-    print("Space Station Data Validation")
-    print("========================================")
+    try:
+        space_station = SpaceStation(
+            station_id="12345678",
+            name="smiya",
+            crew_size=2,
+            power_level=50.0,
+            oxygen_level=50.0,
+            last_maintenance=datetime.now(),
+            is_operational=True,
+            notes="isthisamongus")
+        show(space_station)
 
-    good_test = "generated_data/space_stations.json"
-    with open(good_test) as f:
-        space_station = json.load(f)
-        show(SpaceStation(**space_station[0]))
-
-    print("\n========================================")
-    print("Expected validation error:")
-
-    bad_test = "generated_data/invalid_stations.json"
-    with open(bad_test) as f:
-        space_station = json.load(f)
-        show(SpaceStation(**space_station[0]))
+        print("\n========================================")
+        print("Expected validation error:")
+        _ = SpaceStation(
+                station_id="12345678",
+                name="smiya",
+                crew_size=21,
+                power_level=50.0,
+                oxygen_level=50.0,
+                last_maintenance=datetime.now(),
+                is_operational=True,
+                notes="isthisamongus")
+    except ValidationError as e:
+        print(e.errors()[0]['msg'])
 
 
 if __name__ == "__main__":

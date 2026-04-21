@@ -16,11 +16,11 @@ class Rank(Enum):
 class CrewMember(BaseModel):
     member_id: str = Field(min_length=3, max_length=10)
     name: str = Field(min_length=2, max_length=50)
-    rank: Rank
+    rank: Rank = Field(default_factory=Rank)
     age: int = Field(ge=18, le=80)
     specialization: str = Field(min_length=3, max_length=30)
     years_experience: int = Field(ge=0, le=50)
-    is_active: bool = True
+    is_active: bool = Field(default=True)
 
 
 class SpaceMission(BaseModel):
@@ -98,6 +98,8 @@ if __name__ == "__main__":
             print(value_error_msg.get("error"))
         else:
             print(e.errors()[0]['msg'])
+    except FileNotFoundError:
+        print("Make sure the 42 generated Jsons exist, and run from the root")
     except PermissionError:
         print("stop missing with the file bro")
     except Exception as e:
