@@ -42,7 +42,7 @@ class SpaceMission(BaseModel):
                 has_leader = True
         if not has_leader:
             raise ValueError("Must have at least one Commander or Captain")
-        if self.duration_days > 365 and self.get_experinced_percentage() < 50:
+        if self.duration_days > 365 and self.get_experience_percentage() < 50:
             raise ValueError(
                     "Long missions (> 365 days)" +
                     "need 50% experienced crew (5+ years)")
@@ -51,11 +51,11 @@ class SpaceMission(BaseModel):
                 raise ValueError("All crew members must be active")
         return self
 
-    def get_experinced_percentage(self) -> int:
+    def get_experience_percentage(self) -> int:
         crew_count = len(self.crew)
-        experinced = len([crew for crew in self.crew
+        experience = len([crew for crew in self.crew
                           if crew.years_experience >= 5])
-        return (int(experinced / crew_count * 100))
+        return (int(experience / crew_count * 100))
 
 
 def show(spacemission: SpaceMission) -> None:
@@ -111,7 +111,6 @@ def main() -> None:
         budget_millions=2208.1))
 
     print("\n======================================")
-    print("Expected validation error:")
     show(SpaceMission(
         mission_id='M2024_TITAN',
         mission_name='Solar Observatory Research Mission',
@@ -135,6 +134,7 @@ if __name__ == "__main__":
     try:
         main()
     except ValidationError as e:
+        print("Expected validation error:")
         for e in e.errors():
             print(e['msg'])
     except Exception as e:

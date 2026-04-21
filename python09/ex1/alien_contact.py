@@ -18,7 +18,7 @@ class AlienContact(BaseModel):
     signal_strength: float = Field(ge=0.0, le=10.0)
     duration_minutes: int = Field(ge=1, le=1440)
     witness_count: int = Field(ge=1, le=100)
-    message_received: str | None = Field(max_length=500)
+    message_received: str | None = Field(max_length=500, default=None)
     is_verified: bool = Field(default=False)
 
     @model_validator(mode='after')
@@ -64,7 +64,6 @@ def main() -> None:
         is_verified=False))
 
     print("\n======================================")
-    print("Expected validation error:")
 
     _ = AlienContact(
         contact_id='AC_2024_001',
@@ -82,6 +81,7 @@ if __name__ == "__main__":
     try:
         main()
     except ValidationError as e:
+        print("Expected validation error:")
         for e in e.errors():
             print(e['msg'])
     except Exception as e:
