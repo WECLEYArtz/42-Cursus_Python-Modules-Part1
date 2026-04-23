@@ -1,4 +1,5 @@
-from typing import Callable, Any
+from typing import Any
+from collections.abc import Callable
 from functools import reduce, partial, lru_cache, singledispatch
 from operator import add, mul
 
@@ -28,7 +29,7 @@ def partial_enchanter(base_enchantment: Callable) -> dict[str, Callable]:
     return enchantments
 
 
-@lru_cache(maxsize=None)
+@lru_cache
 def memoized_fibonacci(n: int) -> int:
     if n < 0:
         raise ValueError("Preferably None negative values for fibunacci")
@@ -56,7 +57,7 @@ def spell_dispatcher() -> Callable[[Any], str]:
     return func
 
 
-def main():
+def main() -> None:
     # == Test 0 ===============================================================
     print("Testing spell reducer...")
 
@@ -68,9 +69,6 @@ def main():
 
     spell_powers = [24, 1, 12, 40, 10]
     print("Max:", spell_reducer(spell_powers, 'max'))
-
-    # print(memoized_fibonacci.cache_info())
-    print(memoized_fibonacci(100))
 
     # == Test 1 ===============================================================
     print("\nTesting memoized fibonacci...")

@@ -1,4 +1,5 @@
-from typing import Any, Callable
+from typing import Any
+from collections.abc import Callable
 
 
 def spell_combiner(spell1: Callable, spell2: Callable) -> Callable:
@@ -27,7 +28,7 @@ def spell_sequence(spells: list[Callable]) -> Callable:
     return seq
 
 
-def main():
+def main() -> None:
     # == Testing Spells =======================================================
     def fire_spell(target: str, power: int):
         return f"Fireball hits {target} for {power} HP"

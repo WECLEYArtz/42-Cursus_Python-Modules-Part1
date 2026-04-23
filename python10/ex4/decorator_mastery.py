@@ -1,4 +1,5 @@
-from typing import Callable, Any
+from typing import Any
+from collections.abc import Callable
 from functools import wraps
 from time import sleep, perf_counter
 from random import choice
@@ -6,19 +7,19 @@ from random import choice
 
 def spell_timer(f: Callable) -> Callable:
     @wraps(f)
-    def wrapper():
-        print(f"Casting {wrapper.__name__}...")
+    def decorator() -> Any:
+        print(f"Casting {decorator.__name__}...")
         start = perf_counter()
-        result: str = f()
+        result: Any = f()
         print(f"Spell completed in {perf_counter() - start:.3f} seconds")
         return result
-    return wrapper
+    return decorator
 
 
 def power_validator(min_power: int) -> Callable:
-    def power_validation_decorator(f: Callable[[int],Any]):
+    def decorator_factory(f: Callable[[int], Any]) -> Any:
         @wraps(f)
-        def wrapper(*args: int, **kwargs: int):
+        def decorator(*args: int, **kwargs: int):
             power: int = kwargs.get('power')
             if not args and not kwargs:
                 raise TypeError("no argument was recieved")
@@ -27,14 +28,14 @@ def power_validator(min_power: int) -> Callable:
             if power >= min_power:
                 return f(*args, **kwargs)
             return "Insufficient power for this spell"
-        return wrapper
-    return power_validation_decorator
+        return decorator
+    return decorator_factory
 
 
 def retry_spell(max_attempts: int) -> Callable:
-    def decorator(f: Callable):
+    def decorator_factory(f: Callable) -> Callable:
         @wraps(f)
-        def retry():
+        def decorator():
             for n in range(max_attempts):
                 try:
                     result: Any = f()
@@ -45,8 +46,8 @@ def retry_spell(max_attempts: int) -> Callable:
                     return result
             return (f"Spell casting failed after {max_attempts} attempts" +
                     "\nWaaaaaaagh spelled !")
-        return retry
-    return decorator
+        return decorator
+    return decorator_factory
 
 
 class MageGuild:
@@ -96,9 +97,3 @@ if __name__ == "__main__":
         main()
     except Exception as e:
         print("Error", e)
-
-# Testing MageGuild...
-# True
-# False
-# Successfully cast Lightning with 15 power
-# Insufficient power for this spell

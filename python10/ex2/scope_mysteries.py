@@ -1,4 +1,5 @@
-from typing import Any, Callable
+from typing import Any
+from collections.abc import Callable
 
 
 def mage_counter() -> Callable:
@@ -38,7 +39,7 @@ def memory_vault() -> dict[str, Callable]:
     return {'store': store, 'recall': recall}
 
 
-def main():
+def main() -> None:
     # == Test 0 ===============================================================
     print("Testing mage counter...")
 

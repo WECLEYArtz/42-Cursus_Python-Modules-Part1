@@ -43,8 +43,3 @@ if __name__ == "__main__":
         main()
     except Exception as e:
         print(e)
-
-# Testing artifact sorter...
-# Fire Staff (92 power) comes before Crystal Orb (85 power)
-# Testing spell transformer...
-# * fireball * * heal * * shield *
